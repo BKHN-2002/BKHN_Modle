@@ -1,0 +1,3 @@
+database name ==>  moodledbCopy
+database username ==> khaled
+password ==> 4QV\UrqCo1^50CJg
