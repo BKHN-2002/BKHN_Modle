@@ -8,4 +8,4 @@ require_once '../modle/DB.php';
 //  $conn = mysqli_connect($servername, $username, $password, $dbname);
 $conn = $connection ;
 if (!$conn)
-     die("Connection Error : " . mysqli_connect_error());
+    die("Connection Error : " . mysqli_connect_error());

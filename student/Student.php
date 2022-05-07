@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['username'])){
     include_once('../modle/DB.php');
-    $studentId = $_GET['id'];
+    $studentId =$_SESSION['username'];
     unset($_SESSION["chat"]);
     $query_studentName = mysqli_query($connection, "SELECT name from student where id=$studentId");
     $name=$query_studentName->fetch_all()[0][0];

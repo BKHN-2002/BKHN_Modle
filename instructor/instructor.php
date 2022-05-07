@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['username'])){
     include_once('../modle/DB.php');
-    $insId = $_GET['id'];
+    $insId = $_SESSION['username'];
     $_SESSION["updated"]=1;
     unset($_SESSION["chat"]);
     $query_insName = mysqli_query($connection, "SELECT name from instructor where id=$insId");

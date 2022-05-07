@@ -1,16 +1,26 @@
 <?php
+include_once("../modle/DB.php");
 session_start();
-$instructorId=$_SESSION['username'];
-if (isset($_SESSION["chat"])){
-if (substr($_SESSION['username'], 0, 1) == 2) {
-    header("Location:../instructor/instructor.php?id=$instructorId");
-}elseif (substr($_SESSION['username'], 0, 1) == 1){
-    header("Location:../student/student.php?id=$instructorId");
+$instructorId = $_SESSION['username'];
 
+$myName = "";
+
+if (substr($instructorId, 0, 1) == 2) {
+    $name = "SELECT name from instructor where id= $instructorId";
+    $myName = mysqli_query($connection, $name);
+} else {
+    $name = "SELECT name from student where id= $instructorId";
+    $myName = mysqli_query($connection, $name);
 }
-}else{
-    $_SESSION["chat"]=1;
-}
+
+$myName = mysqli_fetch_assoc($myName)["name"];
+
+$_SESSION["myName"] = $myName;
+
+$_SESSION["chat"] = 1;
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,11 +30,10 @@ if (substr($_SESSION['username'], 0, 1) == 2) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
-    <link rel="stylesheet" type="text/css" href="../style/master.css"/>
-    <link rel="stylesheet" type="text/css" href="../style/tableStyle.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/master.css" />
+    <link rel="stylesheet" type="text/css" href="../style/tableStyle.css" />
     <style>
         .cahtUi {
-            /*background-color: #0c84ff;*/
             margin: auto;
             width: 50%;
             border: 1px solid #4c92dd;
@@ -37,7 +46,8 @@ if (substr($_SESSION['username'], 0, 1) == 2) {
             text-align: left;
             height: 90%;
         }
-        .col-75{
+
+        .col-75 {
             display: flex;
         }
     </style>
@@ -48,8 +58,10 @@ if (substr($_SESSION['username'], 0, 1) == 2) {
 <div class="cahtUi">
     <!--    <p>Chat UI</p>-->
     <div class="message">
-        <table>
-            <tr><th style="text-align: center">Chat UI</th></tr>
+        <table id="chat-table">
+            <tr>
+                <th style="text-align: center">Chat UI</th>
+            </tr>
             <?php
             include_once("../modle/DB.php");
             $id = $_SESSION['username'];
@@ -87,6 +99,9 @@ if (substr($_SESSION['username'], 0, 1) == 2) {
                 ?>
 
                 <?php
+
+
+
                 while ($a = mysqli_fetch_assoc($result)) {
 
                     if ($a['sender'] == $id) {
@@ -114,16 +129,16 @@ if (substr($_SESSION['username'], 0, 1) == 2) {
     </div>
 
 
-    <form method="get" action="insertDB.php">
+    <form ">
+    <div class=" row">
         <div class="row">
-            <div class="row">
-                <div class="col-75">
-                    <input type="text" name="message" required/>
-                    <input type="submit" name="send" value="Send" style="margin-left: 15px">
-                </div>
+            <div class="col-75">
+                <input type="text" id="msg" name="message" required />
+                <input type="button" onclick="sendMsg('<?php echo $_SESSION["myName"] ?>')" name="send" value="Send" style="margin-left: 15px">
             </div>
-
         </div>
+
+    </div>
 
     </form>
     <div class="insid">
@@ -136,6 +151,21 @@ if (substr($_SESSION['username'], 0, 1) == 2) {
         ?>
 
     </div>
+
+    <script>
+        const msgInput = document.getElementById("msg")
+        const chatTable = document.querySelector("#chat-table tbody")
+        let isGray = true;
+
+        function sendMsg(name) {
+            fetch(`insertDB.php?message=${msgInput.value}`);
+            /* location.reload() */
+            chatTable.innerHTML += `<tr><td>${name} : ${msgInput.value}</td></tr>`
+            msgInput.value = "";
+
+        }
+    </script>
+
 </body>
 
 </html>

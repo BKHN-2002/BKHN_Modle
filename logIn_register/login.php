@@ -3,15 +3,14 @@ session_start();
 include_once "../modle/DB.php";
 if (isset($_SESSION['adminLogin'])) {
     header("Location:../admin/home.php");
-}else{
+} else {
 }
-if (isset($_SESSION['username'])){
-    $instructorId=$_SESSION['username'];
+if (isset($_SESSION['username'])) {
+    $instructorId = $_SESSION['username'];
     if (substr($_SESSION['username'], 0, 1) == 2) {
-        header("Location:../instructor/instructor.php?id=$instructorId");
-    }elseif (substr($_SESSION['username'], 0, 1) == 1){
-        header("Location:../student/student.php?id=$instructorId");
-
+        header("Location:../instructor/instructor.php");
+    } elseif (substr($_SESSION['username'], 0, 1) == 1) {
+        header("Location:../student/student.php");
     }
 }
 if (isset($_POST['submit'])) {
@@ -25,25 +24,25 @@ if (isset($_POST['submit'])) {
             $res = mysqli_fetch_all($dat);
             foreach ($res as $key => $value) {
                 if ($value[0] == $username && $value[1] == $password) {
-                    header("location:../student/Student.php?id=$username");
+                    header("location:../student/Student.php");
                     exit();
                 } else {
                     $password_err = "Error password";
                 }
             }
-        } else if (substr($username, 0, 1) == 2){
+        } else if (substr($username, 0, 1) == 2) {
             $query = "SELECT id,pass FROM instructor";
             $dat = mysqli_query($connection, $query);
             $res = mysqli_fetch_all($dat);
             foreach ($res as $key => $value) {
                 if ($value[0] == $username && $value[1] == $password) {
-                    header("location:../instructor/instructor.php?id=$username");
+                    header("location:../instructor/instructor.php");
                     exit();
                 } else {
                     $password_err = "Error password";
                 }
             }
-        }else {
+        } else {
             $query = "SELECT * FROM `admins`";
             $dat = mysqli_query($connection, $query);
             $res = mysqli_fetch_all($dat);
@@ -69,7 +68,7 @@ if (isset($_POST['submit'])) {
             }
         }
     }
-//    }
+    //    }
 }
 function input($data)
 {
