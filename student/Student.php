@@ -1,54 +1,147 @@
 <?php
 session_start();
-if (isset($_SESSION['username'])){
-    include_once('../modle/DB.php');
-    $studentId =$_SESSION['username'];
-    unset($_SESSION["chat"]);
-    $query_studentName = mysqli_query($connection, "SELECT name from student where id=$studentId");
-    $name=$query_studentName->fetch_all()[0][0];
-}else{
+include_once('../modle/DB.php');
+if (isset($_SESSION['username'])) {
+    $instructorId = $_SESSION['username'];
+    if (substr($_SESSION['username'], 0, 1) == 2) {
+        header("Location:../instructor/instructor.php");
+    } elseif (substr($_SESSION['username'], 0, 1) == 1) {
+        $studentId = $_SESSION['username'];
+        unset($_SESSION["chat"]);
+        $query_studentName = mysqli_query($connection, "SELECT name from student where id=$studentId");
+        $name = $query_studentName->fetch_all()[0][0];
+    } else {
+        $query = "SELECT * FROM `admins`";
+        $dat = mysqli_query($connection, $query);
+        $res = mysqli_fetch_all($dat);
+        foreach ($res as $key => $value) {
+            if ($value[0] == $_SESSION['username']) {
+                header("location:../admin/home.php");
+                exit();
+            }
+        }
+    }
+} else {
     header("Location:../logIn_register/login.php");
 }
 
 
 ?>
-    <html>
+<html>
 
-    <head>
-        <link rel="stylesheet" type="text/css" href="../style/tableStyle.css" />
-        <style>
-            .disclaimer{
-                display : none;
-            }
-            .container{
-                display: flex;
-            }
-            .insid{
+<head>
+    <!-- <link rel="stylesheet" type="text/css" href="../style/tableStyle.css" /> -->
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-                margin-top: 25px;
-                margin-right: 15px;
-            }
-            #text{
-                margin-right: 40%;
-            }
-        </style>
-        <title>Student <?php echo $name ?></title>
-    </head>
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
 
-    <body>
+        }
+
+        tr:hover {
+            background-color: rgb(213, 228, 255);
+        }
+
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+            padding: 18px;
+            font-size: 20px;
+        }
+
+        a {
+            background-color: #04AA6D;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: 1px solid #04AA6D;
+        }
+
+        a:hover {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .disclaimer {
+            display: none;
+        }
+
+
+
+        .insid {
+
+            margin-top: 25px;
+            /* margin-right: 15px; */
+        }
+
+        #text {
+            margin-right: 50%;
+            color: white;
+        }
+
+        .container .info {
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            margin: auto;
+        }
+
+        .container {
+            display: flex;
+            /* padding: 70px; */
+        }
+
+        .container .info-container {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            background-color: #04AA6D;
+
+        }
+    </style>
+    <title>Student <?php echo $name ?></title>
+</head>
+
+<body>
     <div class="container">
-        <h1 id="text">
-            <?php
-            echo "Welcome ". $name
-            ?></h1>
+        <div class="info-container">
+            <div class="info">
+                <h1 id="text">
+                    <?php
+                    echo "Welcome " . $name
+                    ?></h1>
 
-        <div class="insid">
-            <a href="../chat/chatScreen.php">Chat</a>
+                <div class="insid">
+                    <a href="../chat/chatScreen.php">Chat</a>
+                </div>
+                <div class="insid">
+                    <a href="../logIn_register/logout.php">LogOut</a>
+                </div>
+            </div>
         </div>
 
-        <div class="insid">
-            <a href="../logIn_register/logout.php">LogOut</a>
-        </div>
+
+
     </div>
     <h2>Quizzes</h2>
     <table>
@@ -74,7 +167,7 @@ if (isset($_SESSION['username'])){
         while ($row = mysqli_fetch_assoc($query_studentQuiz)) {
 
             $quizId = $row['quizId'];
-            if($row['visibility'] != 0) {
+            if ($row['visibility'] != 0) {
                 $query3 = "SELECT startTime,endTime from quizzes where id=$quizId";
                 $dat3 = mysqli_query($connection, $query3);
                 $res3 = mysqli_fetch_all($dat3);
@@ -89,7 +182,7 @@ if (isset($_SESSION['username'])){
                 echo "<tr>";
                 echo "<td>" . $row['courseNameForQuiz'] . "</td>";
                 echo "<td>" . getQuizGrade($connection, $row['quizId'], $studentId) . "</td>";
-                echo "<td>".'<b>Start in:</b> <br>'.$day.' ' . $startTimeOfQuiz.'  <hr> <b>End in: </b><br>'.$dayEnd.' '  .$endTimeOfQuiz.
+                echo "<td>" . '<b>Start in:</b> <br>' . $day . ' ' . $startTimeOfQuiz . '  <hr> <b>End in: </b><br>' . $dayEnd . ' '  . $endTimeOfQuiz .
                     "</td>";
                 echo "<td> <a href='Quiz.php?quizId=$quizId'>attempt now</button> </a>";
                 echo "</tr>";
@@ -120,7 +213,7 @@ if (isset($_SESSION['username'])){
 
 
         while ($row = mysqli_fetch_assoc($query_studentQuiz)) {
-            if($row['visibility'] != 0) {
+            if ($row['visibility'] != 0) {
 
                 $assignmentId = $row['assignmentId'];
 
@@ -138,7 +231,7 @@ if (isset($_SESSION['username'])){
                 echo "<tr>";
                 echo "<td>" . $row['courseNameForAssignment'] . "</td>";
                 echo "<td>" . getAssignmentGrade($connection, $row['assignmentId'], $studentId) . "</td>";
-                echo "<td>".'<b>Start in:</b> <br>'.$day.' ' . $startTimeOfQuiz.'  <hr> <b>End in: </b><br>'.$dayEnd.' '  .$endTimeOfQuiz.
+                echo "<td>" . '<b>Start in:</b> <br>' . $day . ' ' . $startTimeOfQuiz . '  <hr> <b>End in: </b><br>' . $dayEnd . ' '  . $endTimeOfQuiz .
                     "</td>";
                 echo "<td> <a href='Assignment.php?assignmentId=$assignmentId'>attempt now</a> </td>";
                 echo "</tr>";
@@ -179,9 +272,9 @@ if (isset($_SESSION['username'])){
         ?>
     </table>
 
-    </body>
+</body>
 
-    </html>
+</html>
 
 <?php //functions
 function getQuizGrade($connection, int $quizId, int $studentId)

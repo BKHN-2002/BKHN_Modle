@@ -12,6 +12,7 @@ if (isset($_SESSION['username'])) {
     } elseif (substr($_SESSION['username'], 0, 1) == 1) {
         header("Location:../student/student.php");
     }
+} else {
 }
 if (isset($_POST['submit'])) {
     $_SESSION['username'] = $_POST['username'];
@@ -24,7 +25,7 @@ if (isset($_POST['submit'])) {
             $res = mysqli_fetch_all($dat);
             foreach ($res as $key => $value) {
                 if ($value[0] == $username && $value[1] == $password) {
-                    header("location:../student/Student.php");
+                    header("location:../student/student.php");
                     exit();
                 } else {
                     $password_err = "Error password";
@@ -106,27 +107,27 @@ function input($data)
 </head>
 
 <body>
-<div class="wrapper">
-    <h2>Login</h2>
-    <p>Please fill in your credentials to login.</p>
-    <form action="" method="post">
-        <div class="form-group">
-            <label>Username</label>
-            <input type="text" name="username" class="form-control" value="">
-            <span><?php echo empty($username_err) ? " " : $username_err; ?></span>
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" name="password" class="form-control">
-            <span><?php echo empty($password_err) ? " " : $password_err; ?></span>
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary" name="submit" value="Login">
-        </div>
-        <!-- <p>Log sin as admin? <a href="../admin/adminlogin.php">login now</a>.</p> -->
-        <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
-    </form>
-</div>
+    <div class="wrapper">
+        <h2>Login</h2>
+        <p>Please fill in your credentials to login.</p>
+        <form action="" method="post">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" value="">
+                <span><?php echo empty($username_err) ? " " : $username_err; ?></span>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control">
+                <span><?php echo empty($password_err) ? " " : $password_err; ?></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" name="submit" value="Login">
+            </div>
+            <!-- <p>Log sin as admin? <a href="../admin/adminlogin.php">login now</a>.</p> -->
+            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+        </form>
+    </div>
 </body>
 
 </html>

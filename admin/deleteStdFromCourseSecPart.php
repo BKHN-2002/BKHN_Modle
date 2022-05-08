@@ -2,9 +2,9 @@
 session_start();
 require_once "connect.php";
 $echoCourseExist = " ";
+include("../auth/auth.php");
 
-
-if (isset($_POST["submit"])) {
+if (isset($_POST["submit"])&& isAdmin($conn)) {
     $stdId = $_GET['stdId'];
     $courseId = validator($_POST["courseId"]);
 
@@ -151,6 +151,7 @@ function CourseFiller()
             border-radius: 10px;
             padding: 10px 20px;
         }
+
         .state {
             font-size: 15px;
             padding: 10px 90px 0;
@@ -162,147 +163,147 @@ function CourseFiller()
 </head>
 
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+    <div class="wrapper">
 
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <!-- khaled ==> three line bar -->
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="home.php" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="../logIn_register/logout.php" class="nav-link">LogOut</a>
-            </li>
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <!-- khaled ==> three line bar -->
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="home.php" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="../logIn_register/logout.php" class="nav-link">LogOut</a>
+                </li>
 
-        </ul>
-    </nav>
-    <!-- /.navbar -->
+            </ul>
+        </nav>
+        <!-- /.navbar -->
 
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <a href="" class="brand-link" style="text-align: center;">
-            <span class="brand-text font-weight-light "> Admin DashBorad </span>
-        </a>
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="" class="brand-link" style="text-align: center;">
+                <span class="brand-text font-weight-light "> Admin DashBorad </span>
+            </a>
 
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-address-card"></i>
-                            <p>
-                                Student Actions
-                            </p>
-                        </a>
-                    <li class="nav-item">
-                        <a href="addStdToCourseFirstPart.php" class="nav-link" style=" padding-left : 22px ;">
-                            <p style="font-weight: 400; font-size:13px ; ">
-                                Add student To Course
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="deleteStdFromCourseFirstPart.php" class="nav-link" style=" padding-left : 22px ;">
-                            <p style="font-weight: 400; font-size:13px ; ">
-                                Delete student From Course
-                            </p>
-                        </a>
-                    </li>
-                    </li>
-                </ul>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-address-card"></i>
+                                <p>
+                                    Student Actions
+                                </p>
+                            </a>
+                        <li class="nav-item">
+                            <a href="addStdToCourseFirstPart.php" class="nav-link" style=" padding-left : 22px ;">
+                                <p style="font-weight: 400; font-size:13px ; ">
+                                    Add student To Course
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="deleteStdFromCourseFirstPart.php" class="nav-link" style=" padding-left : 22px ;">
+                                <p style="font-weight: 400; font-size:13px ; ">
+                                    Delete student From Course
+                                </p>
+                            </a>
+                        </li>
+                        </li>
+                    </ul>
 
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-address-book"></i>
-                            <p>
-                                Instructor Actions
-                            </p>
-                        </a>
-                    <li class="nav-item">
-                        <a href="addInstructorToCourse.php" class="nav-link" style=" padding-left : 22px ;">
-                            <p style="font-weight: 400; font-size:13px ; ">
-                                Add Instrcutor To Course
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="deleteInstructorFromCourseFirstPart.php" class="nav-link" style=" padding-left : 22px ;">
-                            <p style="font-weight: 400; font-size:13px ; ">
-                                Delete Instrcutor From Course
-                            </p>
-                        </a>
-                    </li>
-                    </li>
-                </ul>
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-address-book"></i>
+                                <p>
+                                    Instructor Actions
+                                </p>
+                            </a>
+                        <li class="nav-item">
+                            <a href="addInstructorToCourse.php" class="nav-link" style=" padding-left : 22px ;">
+                                <p style="font-weight: 400; font-size:13px ; ">
+                                    Add Instrcutor To Course
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="deleteInstructorFromCourseFirstPart.php" class="nav-link" style=" padding-left : 22px ;">
+                                <p style="font-weight: 400; font-size:13px ; ">
+                                    Delete Instrcutor From Course
+                                </p>
+                            </a>
+                        </li>
+                        </li>
+                    </ul>
 
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-book-open"></i>
-                            <p>
-                                Course Actions
-                            </p>
-                        </a>
-                    <li class="nav-item">
-                        <a href="addCourse.php" class="nav-link" style=" padding-left : 22px ;">
-                            <p style="font-weight: 400; font-size:13px ; ">
-                                Add Course
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="deleteCourse.php" class="nav-link" style=" padding-left : 22px ;">
-                            <p style="font-weight: 400; font-size:13px ; ">
-                                Delete Course
-                            </p>
-                        </a>
-                    </li>
-                    </li>
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-        </div>
-        <!-- /.sidebar -->
-    </aside>
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-book-open"></i>
+                                <p>
+                                    Course Actions
+                                </p>
+                            </a>
+                        <li class="nav-item">
+                            <a href="addCourse.php" class="nav-link" style=" padding-left : 22px ;">
+                                <p style="font-weight: 400; font-size:13px ; ">
+                                    Add Course
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="deleteCourse.php" class="nav-link" style=" padding-left : 22px ;">
+                                <p style="font-weight: 400; font-size:13px ; ">
+                                    Delete Course
+                                </p>
+                            </a>
+                        </li>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
 
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <form action="" method="post">
-                <div class="courseId-container">
-                    <label class="label" for="">Course ID : </label>
-                    <div class="ct-select-group ct-js-select-group">
-                        <select class="ct-select ct-js-select" name="courseId">
-                            <option value=""></option>
-                            <?php CourseFiller(); ?>
-                        </select>
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <form action="" method="post">
+                    <div class="courseId-container">
+                        <label class="label" for="">Course ID : </label>
+                        <div class="ct-select-group ct-js-select-group">
+                            <select class="ct-select ct-js-select" name="courseId">
+                                <option value=""></option>
+                                <?php CourseFiller(); ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <h4 class="state">
-                    <?php echo $echoCourseExist; ?>
-                </h4>
-                <input class="sbmit" type="submit" name="submit" value="delete">
-            </form>
+                    <h4 class="state">
+                        <?php echo $echoCourseExist; ?>
+                    </h4>
+                    <input class="sbmit" type="submit" name="submit" value="delete">
+                </form>
+            </div>
+
         </div>
 
-    </div>
+        <aside class="control-sidebar control-sidebar-dark">
+            <div class="p-3">
+                <h5>Title</h5>
+                <p>Sidebar content</p>
+            </div>
+        </aside>
 
-    <aside class="control-sidebar control-sidebar-dark">
-        <div class="p-3">
-            <h5>Title</h5>
-            <p>Sidebar content</p>
-        </div>
-    </aside>
-
-    {{-- <footer class="main-footer">
+        {{-- <footer class="main-footer">
         <div class="float-right d-none d-sm-inline">
             Anything you want
         </div>
