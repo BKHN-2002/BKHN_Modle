@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['courseId'];
-include_once("../modle/DB.php");
+include_once("../../modle/DB.php");
 $sql = "SELECT name,id from  quizzes where courseId=$id";
 // $query = "SELECT q.id as quisId , q.name nameofQuis FROM  quizzes q join course c on c.id=q.courseId  WHERE c.id=$id;";
 $dat = mysqli_query($connection, $sql);
@@ -27,8 +27,12 @@ $dat = mysqli_query($connection, $sql);
       border: 1px solid #ddd;
     }
 
+    #customers tr:nth-child(odd) {
+      background-color: #c5c5f6;
+    }
+
     #customers tr:nth-child(even) {
-      background-color: #f2f2f2;
+      background-color: #c5c5f6;
     }
 
     #customers tr:hover {
@@ -39,7 +43,7 @@ $dat = mysqli_query($connection, $sql);
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: left;
-      background-color: #04AA6D;
+      background-color: #9933ff;
       color: white;
       padding: 14px 25px;
       text-align: center;
@@ -86,7 +90,7 @@ $dat = mysqli_query($connection, $sql);
     }
 
     .active {
-      background-color: #04AA6D;
+      background-color: #c5c5f6;
     }
 
     @media screen and (max-width: 100%) {
@@ -111,7 +115,7 @@ $dat = mysqli_query($connection, $sql);
         echo "<td>";
         $id = $data['id'];
         $nameOfQuiz = $data['name'];
-        echo "<a class='alink' href='showQustioninQuize.php?id=$id'>$nameOfQuiz</a>";
+        echo "<a class='alink' href='showQustioninQuize.php?id=$id'><p>$nameOfQuiz</p></a>";
         echo "</td>";
         echo "</tr>";
       }

@@ -1,7 +1,7 @@
 <?php
 session_start();
 $idQuize = $_GET['id'];
-include_once("../modle/DB.php");
+include_once("../../modle/DB.php");
 $selectqustion = "SELECT id,qustion FROM selectquise   WHERE quizId =$idQuize";
 $selectqustiondata = mysqli_query($connection, $selectqustion);
 ?>
@@ -15,9 +15,14 @@ $selectqustiondata = mysqli_query($connection, $selectqustion);
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="../../s.css">
   <style>
     /* Style the navigation bar */
+
+    * {
+      margin: 0%;
+      padding: 0%;
+    }
+
     .navbar {
       width: 100%;
       background-color: #555;
@@ -39,7 +44,7 @@ $selectqustiondata = mysqli_query($connection, $selectqustion);
     }
 
     .active {
-      background-color: #04AA6D;
+      background-color: #9933ff;
     }
 
     @media screen and (max-width: 100%) {
@@ -63,7 +68,11 @@ $selectqustiondata = mysqli_query($connection, $selectqustion);
     }
 
     #customers tr:nth-child(even) {
-      background-color: #f2f2f2;
+      background-color: #c5c5f6;
+    }
+
+    #customers tr:nth-child(odd) {
+      background-color: #c5c5f6;
     }
 
     #customers tr:hover {
@@ -74,7 +83,7 @@ $selectqustiondata = mysqli_query($connection, $selectqustion);
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: left;
-      background-color: #04AA6D;
+      background-color: #9933ff;
       color: white;
     }
   </style>
@@ -84,8 +93,9 @@ $selectqustiondata = mysqli_query($connection, $selectqustion);
 
 
   <div class="navbar">
-    <a class="active" href="instructor.php?id=<?php echo $_SESSION['username'] ?>"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a class="active" href="../instructor.php"><i class="fa fa-fw fa-home"></i> Home</a>
     <a href='addQustionToQuize.php?id=<?php echo $idQuize; ?>'><i class=""></i> Add Qustion to Quize</a>
+    <a href='../Date/editDate.php?quizId=<?php echo $idQuize; ?>'><i class=""></i>Edit Time Of Quiz</a>
     <a href='showCourses.php'><i class=""></i> Back</a>
   </div>
   <h1>A Qustion Of Quize</h1>

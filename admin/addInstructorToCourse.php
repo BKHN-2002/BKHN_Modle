@@ -9,9 +9,11 @@ if (isset($_POST["submit"]) && isAdmin($connection)) {
 
     if (!empty($instructorId) && !empty($courseId)) {
         $sql = "INSERT INTO `instructor_course`(`instructorID`, `courseId`) VALUES (" . $instructorId .  "," . $courseId . ")";
+        $echoCourseExist = "Added Succesfully";
         if (mysqli_query($connection, $sql)) {
-        } else
-            $echoCourseExist = "enter a correct data ... ";
+        } else{
+            $echoCourseExist = "This Instructor Already Teach this course";
+        }
     } else {
         $echoCourseExist = "enter a correct data ... ";
     }
@@ -31,7 +33,7 @@ function validator($str)
 function CourseFiller()
 {
     $sql = "SELECT * from courses";
-    $result = mysqli_query($connection, $sql);
+    $result = mysqli_query($GLOBALS['connection'], $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             $courseId = $row['id'];
@@ -44,7 +46,7 @@ function CourseFiller()
 function InstructorFiller()
 {
     $sql = "SELECT * from instructor";
-    $result = mysqli_query($connection, $sql);
+    $result = mysqli_query($GLOBALS['connection'], $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             $instructorId = $row['id'];
@@ -136,7 +138,7 @@ function InstructorFiller()
             right: 0;
             width: 64px;
             height: 64px;
-            background-color: #007bff;
+            background-color: #04AA6D;
             background-image: url(https://raw.githubusercontent.com/solodev/styling-select-boxes/master/select1.png);
             background-position: center;
             background-repeat: no-repeat;
@@ -154,7 +156,7 @@ function InstructorFiller()
             font-weight: 600;
             text-transform: uppercase;
             color: white;
-            background-color: #007bff;
+            background-color: #04AA6D;
             margin: 43px 20px;
             border: none;
             border-radius: 10px;
@@ -167,6 +169,13 @@ function InstructorFiller()
             text-transform: capitalize;
             font-weight: 600;
             color: red;
+        }
+
+        .slider {
+            background-color: #04AA6D !important;
+        }
+        select{
+            border : 1px solid black !important ; 
         }
     </style>
 </head>
@@ -204,7 +213,7 @@ function InstructorFiller()
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider ">
                                 <i class="nav-icon fas fa-address-card"></i>
                                 <p>
                                     Student Actions
@@ -229,7 +238,7 @@ function InstructorFiller()
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider">
                                 <i class="nav-icon fas fa-address-book"></i>
                                 <p>
                                     Instructor Actions
@@ -254,7 +263,7 @@ function InstructorFiller()
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider ">
                                 <i class="nav-icon fas fa-book-open"></i>
                                 <p>
                                     Course Actions
@@ -287,7 +296,7 @@ function InstructorFiller()
             <div class="content-header">
                 <form action="" method="post">
                     <div class="courseId-container">
-                        <label class="label" for="">Course ssID : </label>
+                        <label class="label" for="">Course ID : </label>
                         <div class="ct-select-group ct-js-select-group">
                             <select class="ct-select ct-js-select" name="courseId" id="courseId">
                                 <option value=""></option>
@@ -302,7 +311,6 @@ function InstructorFiller()
                                     }
                                 }
                                 ?>
-                                <option value="">hussen</option>
                             </select>
                         </div>
                     </div>

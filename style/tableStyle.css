@@ -18,14 +18,14 @@ tr:hover {
 
 
 th {
-    background-color: #04AA6D;
+    background-color: #9933ff;
     color: white;
     padding: 18px;
     font-size: 20px;
 }
 
 a {
-    background-color: #04AA6D;
+    background-color: #9933ff;
     /* Green */
     border: none;
     color: white;
@@ -39,10 +39,10 @@ a {
     cursor: pointer;
     background-color: white;
     color: black;
-    border: 1px solid #04AA6D;
+    border: 1px solid #9933ff;
 }
 
 a:hover {
-    background-color: #04AA6D;
+    background-color: #9933ff;
     color: white;
 }

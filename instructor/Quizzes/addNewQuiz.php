@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "../modle/DB.php";
+include_once("../../modle/DB.php");
 if (isset($_POST['submit'])) {
     $courseId = substr($_POST['courseId'], 0, 3);
     $nameQuiz = $_POST['nameQuiz'];
@@ -11,17 +11,20 @@ if (isset($_POST['submit'])) {
     $instructorId = $_SESSION['username'];
 
     //INSERT INTO `quizzes`(`id`, `instructorId`, `courseId`, `startTime`, `endTime`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]')
-    $sql = "INSERT INTO `quizzes`(`id`, `instructorId`, `courseId`, `startTime`, `endTime`, `name`) VALUES ('','$instructorId','$courseId','$stratTime','$endTime','$nameQuiz')";
-    mysqli_query($connection, $sql);
+    $sql = "INSERT INTO `quizzes`(`id`, `instructorId`, `courseId`, `startTime`, `endTime`, `name`) VALUES (null,'$instructorId','$courseId','$stratTime','$endTime','$nameQuiz')";
 
-    header("Location:addQuestionForQuiz.php?courseId=$courseId");
+
+    mysqli_query($connection, $sql);
+    $idQuize = mysqli_insert_id($connection);
+
+    header("Location:addQustionToQuize.php?id=$idQuize");
 }
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../style/formStyle.css">
+    <link rel="stylesheet" href="../../style/formStyle.css">
     <meta charset="UTF-8">
     <title>Add Quiz</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -30,8 +33,10 @@ if (isset($_POST['submit'])) {
             font: 14px sans-serif;
             max-width: max-content;
             margin: auto;
+            background-color: #c5c5f6;
             padding: 100px;
         }
+
 
         .wrapper {
             width: 360px;
@@ -88,7 +93,7 @@ if (isset($_POST['submit'])) {
     border-radius: 4px;
     box-sizing: border-box;">
         </div>
-        <input type="submit" name="submit" value="submit">
+        <input type="submit" style="background-color: #9933ff;" name="submit" value="submit">
     </form>
 </body>
 

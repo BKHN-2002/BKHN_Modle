@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("../modle/DB.php");
+include_once("../../modle/DB.php");
 $instructorId=$_SESSION['username'];
 $assignmentId=$_GET['assignmentId'];
 $courseID=$_GET['courseId'];
@@ -9,7 +9,7 @@ $courseID=$_GET['courseId'];
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../style/tableStyle.css" />
+    <link rel="stylesheet" type="text/css" href="../../style/tableStyle.css" />
 
 </head>
 <body>

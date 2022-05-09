@@ -1,14 +1,11 @@
 <?php
 session_start();
 include_once "../modle/DB.php";
-//    $con = mysqli_connect("localhost","root","","moodledb");
-//    if(!$con){
-//        die("Erore Database connection ".mysqli_connect_error($con));
-//    }else{
 $id = $_GET['id'];
 $path = substr($id,0,1)==1?'../student/Student.php':'../instructor/instructor.php';
 if(substr($id,0,1)==1){
     $addDataToStudent = "SELECT * from student where id=".$id;
+//    echo $addDataToStudent;
     $data=mysqli_query($connection,$addDataToStudent);
     $res = mysqli_fetch_all($data);
     $name = $res[0][1];
@@ -40,10 +37,10 @@ if(substr($id,0,1)==1){
                 <?php
                 if ( substr($id,0,1)==1) {
                     // echo substr($id,0,1)==1;
-                    $path="../student/student.php?id=".$id;
+                    $path="../student/student.php";
                     $_SESSION['username']=$id;
                 }else{
-                    $path="../instructor/instructor.php?id=".$id;
+                    $path="../instructor/instructor.php";
                     // echo $path;
                     $_SESSION['username']=$id;
                     // echo $_SESSION['username'];

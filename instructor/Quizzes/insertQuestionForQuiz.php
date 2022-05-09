@@ -1,5 +1,5 @@
 <?php
-include "../modle/DB.php";
+include "../../modle/DB.php";
 
 $quizId = $_GET['quizId'];
 $Qustion = $_GET['question'];

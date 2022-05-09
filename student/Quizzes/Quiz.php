@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "../modle/DB.php";
+include_once("../../modle/DB.php");
 $idstudent = $_SESSION['username'];
 $quizeId = $_GET['quizId'];
 
@@ -111,7 +111,7 @@ if (isset($_POST['submit'])) {
         }
 
         tr:hover {
-            background-color: #6aabf2;
+            background-color: #c5c5f6;
         }
 
         tr:nth-child(even) {
@@ -119,7 +119,7 @@ if (isset($_POST['submit'])) {
         }
 
         th {
-            background-color: #4c92dd;
+            background-color: #9933ff;
             color: white;
         }
     </style>
@@ -127,7 +127,7 @@ if (isset($_POST['submit'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quize <?php echo $quizeId ; ?></title>
-    <link rel="stylesheet" href="../style/quizeStyle.css">
+    <link rel="stylesheet" href="../../style/quizeStyle.css">
 </head>
 
 <body>

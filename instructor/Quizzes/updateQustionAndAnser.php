@@ -1,5 +1,5 @@
 <?php
-include_once("../modle/DB.php");
+include_once("../../modle/DB.php");
 $idQuze = $_GET['idQuize'];
 $idQustion = $_GET['id'];
 //select answer Qustion

@@ -1,6 +1,6 @@
 <?php
 
-include_once "../modle/DB.php";
+include_once "../../modle/DB.php";
 $fileName = $_GET['fileName'];
 $courseId=$_GET['courseId'];
 $instructorID=$_GET['id'];

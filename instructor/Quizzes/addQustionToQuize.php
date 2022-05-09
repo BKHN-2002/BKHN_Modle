@@ -1,5 +1,5 @@
 <?php
-include_once("../modle/DB.php");
+include_once("../../modle/DB.php");
 $quizeId = $_GET['id'];
 session_start();
 if (isset($_POST['submit'])) {
@@ -13,10 +13,7 @@ if (isset($_POST['submit'])) {
         $checkbox2 = empty($_POST['checkbox2']) ? 0 : 1;
         $checkbox3 = empty($_POST['checkbox3']) ? 0 : 1;
         $checkbox4 = empty($_POST['checkbox4']) ? 0 : 1;
-        echo "
-        <script type='text/javascript'>
-        alert('Add Successfully');
-        </script> ";
+
         header("Location:insertQuestionForQuiz.php?quizId=$quizeId &question=$Qustion&ans1=$Answer1&ans2=$Answer2&ans3=$Answer3&ans4=$Answer4&check1=$checkbox1&check2=$checkbox2&check3=$checkbox3&check4=$checkbox4");
 
         exit();

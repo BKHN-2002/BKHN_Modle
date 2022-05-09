@@ -5,6 +5,7 @@ if (isset($_SESSION['adminLogin'])) {
 
     header("Location:../admin/home.php");
 }else{
+    header("Location:../logIn_register/login.php");
 }
 if (isset($_SESSION['username'])){
     $instructorId=$_SESSION['username'];

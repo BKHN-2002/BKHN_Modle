@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['updated'])){
-    include_once("../modle/DB.php");
+    include_once("../../modle/DB.php");
     $assignmentId=$_GET['assignmentId'];
 
     $studentId=$_GET['studentId'];
@@ -23,7 +23,7 @@ if (isset($_SESSION['updated'])){
     }
 }else{
     $instructorId=$_SESSION['username'];
-    header("Location:instructor.php?id=$instructorId");
+    header("Location:../instructor.php");
 }
 
 
@@ -33,7 +33,7 @@ if (isset($_SESSION['updated'])){
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../style/master.css">
+    <link rel="stylesheet" href="../../style/master.css">
 </head>
 
 <body>

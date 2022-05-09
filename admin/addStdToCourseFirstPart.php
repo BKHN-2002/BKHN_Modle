@@ -121,7 +121,7 @@ function CourseFiller($connection)
             right: 0;
             width: 64px;
             height: 64px;
-            background-color: #007bff;
+            background-color: #04AA6D;
             background-image: url(https://raw.githubusercontent.com/solodev/styling-select-boxes/master/select1.png);
             background-position: center;
             background-repeat: no-repeat;
@@ -139,7 +139,7 @@ function CourseFiller($connection)
             font-weight: 600;
             text-transform: uppercase;
             color: white;
-            background-color: #007bff;
+            background-color: #04AA6D;
             margin: 43px 20px;
             border: none;
             border-radius: 10px;
@@ -152,6 +152,12 @@ function CourseFiller($connection)
             text-transform: capitalize;
             font-weight: 600;
             color: red;
+        }
+        .slider{
+            background-color: #04AA6D !important;
+        }
+        select{
+            border : 1px solid black !important ; 
         }
     </style>
 </head>
@@ -171,7 +177,7 @@ function CourseFiller($connection)
                     <a href="home.php" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../logIn_register/logout.php" class="nav-link">LogOut</a>
+                    <a href="logIn_register/logout.php" class="nav-link">LogOut</a>
                 </li>
             </ul>
         </nav>
@@ -189,7 +195,7 @@ function CourseFiller($connection)
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider ">
                                 <i class="nav-icon fas fa-address-card"></i>
                                 <p>
                                     Student Actions
@@ -214,7 +220,7 @@ function CourseFiller($connection)
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider ">
                                 <i class="nav-icon fas fa-address-book"></i>
                                 <p>
                                     Instructor Actions
@@ -239,7 +245,7 @@ function CourseFiller($connection)
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider ">
                                 <i class="nav-icon fas fa-book-open"></i>
                                 <p>
                                     Course Actions

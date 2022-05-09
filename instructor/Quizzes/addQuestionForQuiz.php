@@ -52,7 +52,7 @@ if (isset($_POST['back'])) {
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../style/formStyle.css">
+    <link rel="stylesheet" href="../../style/formStyle.css">
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">

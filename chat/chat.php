@@ -1,26 +1,15 @@
 <?php
-include_once("../modle/DB.php");
 session_start();
 $instructorId = $_SESSION['username'];
-
-$myName = "";
-
-if (substr($instructorId, 0, 1) == 2) {
-    $name = "SELECT name from instructor where id= $instructorId";
-    $myName = mysqli_query($connection, $name);
+if (isset($_SESSION["chat"])) {
+    if (substr($_SESSION['username'], 0, 1) == 2) {
+        header("Location:../instructor/instructor.php?id=$instructorId");
+    } elseif (substr($_SESSION['username'], 0, 1) == 1) {
+        header("Location:../student/student.php?id=$instructorId");
+    }
 } else {
-    $name = "SELECT name from student where id= $instructorId";
-    $myName = mysqli_query($connection, $name);
+    $_SESSION["chat"] = 1;
 }
-
-$myName = mysqli_fetch_assoc($myName)["name"];
-
-$_SESSION["myName"] = $myName;
-
-$_SESSION["chat"] = 1;
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,123 +38,127 @@ $_SESSION["chat"] = 1;
 
         .col-75 {
             display: flex;
+
+        }
+
+        #msg {
+            width: 90%;
+        }
+
+        a {
+            border: 1px solid #adadf6;
+        }
+
+        a:hover {
+            background-color: #adadf6;
+            color: white;
+        }
+
+        input[type=submit]:hover {
+            background-color: #adadf6;
+        }
+
+        input[type=submit] {
+            background-color: #9933ff;
         }
     </style>
 </head>
 
 <body style="overflow: visible">
 
-<div class="cahtUi">
-    <!--    <p>Chat UI</p>-->
-    <div class="message">
-        <table id="chat-table">
-            <tr>
-                <th style="text-align: center">Chat UI</th>
-            </tr>
-            <?php
-            include_once("../modle/DB.php");
-            $id = $_SESSION['username'];
-            $idStudent = $_GET['id'];
-            $_SESSION['idStudent'] = $idStudent;
+    <div class="cahtUi">
+        <!--    <p>Chat UI</p>-->
+        <div class="message">
+            <table>
+                <tr>
+                    <th style="text-align: center ; background-color: #9933ff !important; ">Chat UI</th>
+                </tr>
+                <?php
+                include_once("../modle/DB.php");
+                $id = $_SESSION['username'];
+                $idStudent = $_GET['id'];
+                $_SESSION['idStudent'] = $idStudent;
 
-            if (substr($id, 0, 1) == 2) {
-                $sql = "SELECT * FROM `message` WHERE `instructorId`= $id and `studentID`= $idStudent ORDER BY createdAt ASC ";
-                $result = mysqli_query($connection, $sql);
-                while ($a = mysqli_fetch_assoc($result)) {
+                if (substr($id, 0, 1) == 2) {
+                    $sql = "SELECT * FROM `message` WHERE `instructorId`= $id and `studentID`= $idStudent ORDER BY createdAt ASC ";
+                    $result = mysqli_query($connection, $sql);
+                    while ($a = mysqli_fetch_assoc($result)) {
 
-                    if ($a['sender'] == $id) {
-                        $nameInstructor = "SELECT name from instructor where id= $id";
-                        $r = mysqli_query($connection, $nameInstructor);
-                        while ($n = mysqli_fetch_assoc($r)) {
-                            echo "<tr>";
-                            echo '<td>' . $n['name'] . " : " . $a['msgText'] . '</td>';
-                            echo "</tr>";
-                        }
-                    } else {
-                        $idStudent = $a['sender'];
-                        $name = "SELECT name from student where id= $idStudent";
-                        $r = mysqli_query($connection, $name);
-                        while ($n = mysqli_fetch_assoc($r)) {
-                            echo "<tr>";
-                            echo '<td>' . $n['name'] . " : " . $a['msgText'] . '</td>';
-                            echo "</tr>";
+                        if ($a['sender'] == $id) {
+                            $nameInstructor = "SELECT name from instructor where id= $id";
+                            $r = mysqli_query($connection, $nameInstructor);
+                            while ($n = mysqli_fetch_assoc($r)) {
+                                echo "<tr>";
+                                echo '<td style="background-color:#adadf6 !important; color:white ; " >' . $n['name'] . " : " . $a['msgText'] . '</td>';
+                                echo "</tr>";
+                            }
+                        } else {
+                            $idStudent = $a['sender'];
+                            $name = "SELECT name from student where id= $idStudent";
+                            $r = mysqli_query($connection, $name);
+                            while ($n = mysqli_fetch_assoc($r)) {
+                                echo "<tr>";
+                                echo '<td style="background-color: #c5c5f6 !important; color:black ; ">' . $n['name'] . " : " . $a['msgText'] . '</td>';
+                                echo "</tr>";
+                            }
                         }
                     }
-                }
-            } else if (substr($id, 0, 1) == 1) {
+                } else if (substr($id, 0, 1) == 1) {
 
-                $sql = "SELECT * FROM `message` WHERE `instructorId`= $idStudent and `studentID`= $id ORDER BY createdAt ASC";
-                $result = mysqli_query($connection, $sql);
+                    $sql = "SELECT * FROM `message` WHERE `instructorId`= $idStudent and `studentID`= $id ORDER BY createdAt ASC";
+                    $result = mysqli_query($connection, $sql);
                 ?>
 
                 <?php
+                    while ($a = mysqli_fetch_assoc($result)) {
 
-
-
-                while ($a = mysqli_fetch_assoc($result)) {
-
-                    if ($a['sender'] == $id) {
-                        $nameInstructor = "SELECT name from student where id= $id";
-                        $r = mysqli_query($connection, $nameInstructor);
-                        while ($n = mysqli_fetch_assoc($r)) {
-                            echo "<tr>";
-                            echo '<td>' . $n['name'] . " : " . $a['msgText'] . '</td>';
-                            echo "</tr>";
-                        }
-                    } else {
-                        $idStudent = $a['sender'];
-                        $name = "SELECT name from instructor where id= $idStudent";
-                        $r = mysqli_query($connection, $name);
-                        while ($n = mysqli_fetch_assoc($r)) {
-                            echo "<tr>";
-                            echo '<td>' . $n['name'] . " : " . $a['msgText'] . '</td>';
-                            echo "</tr>";
+                        if ($a['sender'] == $id) {
+                            $nameInstructor = "SELECT name from student where id= $id";
+                            $r = mysqli_query($connection, $nameInstructor);
+                            while ($n = mysqli_fetch_assoc($r)) {
+                                echo "<tr>";
+                                echo '<td style="background-color:#adadf6 !important; color:white ; ">' . $n['name'] . " : " . $a['msgText'] . '</td>';
+                                echo "</tr>";
+                            }
+                        } else {
+                            $idStudent = $a['sender'];
+                            $name = "SELECT name from instructor where id= $idStudent";
+                            $r = mysqli_query($connection, $name);
+                            while ($n = mysqli_fetch_assoc($r)) {
+                                echo "<tr>";
+                                echo '<td style="background-color: #c5c5f6 !important; color:black ; ">' . $n['name'] . " : " . $a['msgText'] . '</td>';
+                                echo "</tr>";
+                            }
                         }
                     }
                 }
-            }
-            ?>
-        </table>
-    </div>
-
-
-    <form ">
-    <div class=" row">
-        <div class="row">
-            <div class="col-75">
-                <input type="text" id="msg" name="message" required />
-                <input type="button" onclick="sendMsg('<?php echo $_SESSION["myName"] ?>')" name="send" value="Send" style="margin-left: 15px">
-            </div>
+                ?>
+            </table>
         </div>
 
-    </div>
 
-    </form>
-    <div class="insid">
-        <?php
-        if (substr($id, 0, 1) == 2) {
-            echo " <a href='../instructor/instructor.php?id=$id'>Back</a>";
-        } else if (substr($id, 0, 1) == 1) {
-            echo " <a href='../student/Student.php?id=$id'>Back</a>";
-        }
-        ?>
+        <form method="get" action="insertDB.php">
+            <div class="row">
+                <div class="row">
+                    <div class="col-75">
+                        <input type="text" id="msg" name="message" required />
+                        <input type="submit" class="a" name="send" value="Send" style="margin-left: 15px">
+                    </div>
+                </div>
 
-    </div>
+            </div>
 
-    <script>
-        const msgInput = document.getElementById("msg")
-        const chatTable = document.querySelector("#chat-table tbody")
-        let isGray = true;
+        </form>
+        <div class="insid">
+            <?php
+            if (substr($id, 0, 1) == 2) {
+                echo " <a href='../instructor/instructor.php?id=$id'>Back</a>";
+            } else if (substr($id, 0, 1) == 1) {
+                echo " <a href='../student/Student.php?id=$id'>Back</a>";
+            }
+            ?>
 
-        function sendMsg(name) {
-            fetch(`insertDB.php?message=${msgInput.value}`);
-            /* location.reload() */
-            chatTable.innerHTML += `<tr><td>${name} : ${msgInput.value}</td></tr>`
-            msgInput.value = "";
-
-        }
-    </script>
-
+        </div>
 </body>
 
 </html>

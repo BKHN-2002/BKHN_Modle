@@ -1,5 +1,5 @@
 <?php
-require_once "../modle/DB.php";
+require_once "../../modle/DB.php";
 
 $stdId = $_GET['stdId'];
 $courseId = $_GET['couseId'];
@@ -40,7 +40,7 @@ $courseSql = "SELECT  `name` FROM `courses` WHERE `id` = " . $courseId;
 
         .container span {
             text-transform: capitalize;
-            color: #187ae2;
+                color: #187ae2;
 
         }
 
@@ -61,15 +61,15 @@ $courseSql = "SELECT  `name` FROM `courses` WHERE `id` = " . $courseId;
         }
 
         tr:hover {
-            background-color: #6aabf2;
+            background-color: #adadf6;
         }
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
+        tr:nth-child(odd) {
+            background-color: #ddd;
         }
 
         th {
-            background-color: #4c92dd;
+            background-color: #9933ff;
             color: white;
         }
     </style>

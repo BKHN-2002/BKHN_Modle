@@ -97,7 +97,7 @@ if (isset($_SESSION['adminLogin'])) {
         .content-header h2 {
             font-weight: 800;
             font-size: 2rem;
-            color: #007bff;
+            color: #04AA6D;
             padding: 20px;
         }
 
@@ -129,7 +129,7 @@ if (isset($_SESSION['adminLogin'])) {
         .content-header .information-container .box {
             margin: 30px 0px;
             padding: 10px 10px;
-            background-color: #4c92dd;
+            background-color: #04AA6D;
             color: white;
             border-radius: 20px;
             width: 30%;
@@ -185,6 +185,10 @@ if (isset($_SESSION['adminLogin'])) {
                 width: 100%;
             }
         }
+        .slider{
+            background-color: #04AA6D !important;
+        }
+    
     </style>
 </head>
 
@@ -222,7 +226,7 @@ if (isset($_SESSION['adminLogin'])) {
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider">
                                 <i class="nav-icon fas fa-address-card"></i>
                                 <p>
                                     Student Actions
@@ -247,7 +251,7 @@ if (isset($_SESSION['adminLogin'])) {
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider ">
                                 <i class="nav-icon fas fa-address-book"></i>
                                 <p>
                                     Instructor Actions
@@ -272,7 +276,7 @@ if (isset($_SESSION['adminLogin'])) {
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider ">
                                 <i class="nav-icon  fas fa-book-open"></i>
                                 <p>
                                     Course Actions

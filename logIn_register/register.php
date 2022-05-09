@@ -17,9 +17,10 @@ if (isset($_POST['submit'])) {
                 $query = "SELECT count(*) FROM student";
                 $dat = mysqli_query($connection, $query);
                 $res = mysqli_fetch_all($dat);
-                // $id = '1' . date("Y") . ($res[0][0] + 1);
-                $addDataToStudent = "INSERT INTO student (id,name,pass,phoneNumber,gender) VALUES (null,'$name','$password','$phoneNumber','$Gender');";
+                 $id = '1' . date("Y") . ($res[0][0] + 1);
+                $addDataToStudent = "INSERT INTO student (id,name,pass,phoneNumber,gender) VALUES ('$id','$name','$password','$phoneNumber','$Gender');";
                 mysqli_query($connection, $addDataToStudent);
+//                echo $addDataToStudent;
                 header("location:information.php?id=" . $id);
             } else {
                 $name = input($_POST['namestudent']);
@@ -62,21 +63,67 @@ function input($data)
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../style/sign.css">
     <style>
-        body {
-            font: 14px sans-serif;
-            max-width: max-content;
-            margin: auto;
-            padding: 100px;
-        }
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
 
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #161623;
+
+        }
+        body::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            Left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(#2196f3, #e91e63);
+            clip-path: circle(30% at right 70%);
+
+        }
+        body::after{
+            content: '';
+            position: absolute;
+            top: 0;
+            Left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(#2196f3, #e91e63);
+            clip-path: circle(20% at 10% 10%);
+
+        }
         .wrapper {
-            width: 360px;
-            padding: 20px;
+            padding: 10px 25px 0 ;
+            color: white;
+            position: relative;
+            width: 480px;
+            /*height: 700px;*/
+            box-shadow: 20px 20px 50px rgba(0, 0, 0,0.5);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            justify-content: center;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            border-Left: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
         }
-
         span {
             color: red;
             size: 3px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+                padding: 0  0 0 10px ;
         }
     </style>
 </head>
@@ -87,50 +134,50 @@ function input($data)
         <p>Please fill this form to create an account.</p>
         <form action="" method="post">
             <div class="form-group">
-                <label>name</label>
+                <label>name :</label>
                 <input type="text" name="namestudent" class="form-control" value="">
                 <span><?php echo empty($username_err) ? " " : $username_err; ?></span>
             </div>
             <div class="form-group">
-                <label>phone Number</label>
+                <label>phone Number : </label>
                 <input type="text" name="phoneNumber" class="form-control" value="">
                 <span><?php echo empty($phoneNumber_err) ? " " : $phoneNumber_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Password</label>
+                <label>Password : </label>
                 <input type="password" name="password" class="form-control" value="">
                 <span><?php echo empty($password_err) ? " " : $password_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Confirm Password</label>
+                <label>Confirm Password : </label>
                 <input type="password" name="confirm_password" class="form-control" value="">
                 <span><?php echo empty($confirm_password_err) ? " " : $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
-                <span style="font-size: 25px;color: #2196F3;">Gender :</span>
-                <label style="display: inline;" class="container">Male
-                    <input type="radio" checked="checked" value="" name="gender" value="student">
+                <span style="font-size: 15px;color: #2196F3;">Gender :</span>
+                <label style="display: inline;font-size: 15px;" class="container">Male
+                    <input  type="radio" checked="checked" value="" name="gender" value="student">
                     <span class="checkmark"></span>
                 </label>
-                <label style="display: inline;" class="container">FMale
+                <label style="display: inline;font-size: 15px;" class="container">Fmale
                     <input type="radio" name="gender" value="instructor">
                     <span class="checkmark"></span>
                 </label>
             </div>
             <br>
             <div class="form-group">
-                <label style="display: inline;" class="container">Student
+                <label style="display: inline;font-size: 15px;" class="container">Student
                     <input type="radio" checked="checked" value="student" name="studentOrInstructor" value="student">
                     <span class="checkmark"></span>
                 </label>
-                <label style="display: inline;" class="container">Instructor
+                <label style="display: inline;font-size: 15px;" class="container">Instructor
                     <input type="radio" name="studentOrInstructor" value="instructor">
                     <span class="checkmark"></span>
                 </label>
             </div>
             <br>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" name='submit' value="Submit">
+                <input type="submit" class="btn btn-primary" name='submit' value="Submit" style="    background-color: #e91e63; border: none">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
             <p>Already have an account? <a href="login.php">Login here</a>.</p>

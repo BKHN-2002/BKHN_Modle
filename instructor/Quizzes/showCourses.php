@@ -1,7 +1,7 @@
 <?php
 session_start();
 $instructorId = $_SESSION['username'];
-include_once("../modle/DB.php");
+include_once("../../modle/DB.php");
 $query = "SELECT courseId  FROM instructor_course where instructorID =$instructorId";
 $dat = mysqli_query($connection, $query);
 // $res = $dat->fetch_assoc();
@@ -17,7 +17,6 @@ $dat = mysqli_query($connection, $query);
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="../../s.css">
   <style>
     #customers {
       font-family: Arial, Helvetica, sans-serif;
@@ -60,7 +59,7 @@ $dat = mysqli_query($connection, $query);
     }
 
     .active {
-      background-color: #04AA6D;
+      background-color: #9933ff;
     }
 
     @media screen and (max-width: 100%) {
@@ -70,11 +69,16 @@ $dat = mysqli_query($connection, $query);
       }
     }
 
+    * {
+      margin: 0%;
+      padding: 0%;
+    }
+
     #customers th {
       padding-top: 12px;
       padding-bottom: 12px;
       text-align: left;
-      background-color: #04AA6D;
+      background-color: #9933ff;
       color: white;
       padding: 14px 25px;
       text-align: center;
@@ -104,7 +108,7 @@ $dat = mysqli_query($connection, $query);
 
 
   <div class="navbar">
-    <a class="active" href="../instructor/instructor.php?id=<?php echo $instructorId ?>>"><i class="fa fa-fw fa-home"></i>Home</a>
+    <a class="active" href="../instructor.php"><i class="fa fa-fw fa-home"></i>Home</a>
   </div>
   <h1>A Course Table</h1>
   <table id="customers">

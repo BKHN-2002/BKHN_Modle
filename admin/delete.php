@@ -1,5 +1,5 @@
 <?php
-require_once "../connect.php";
+require_once "connect.php";
 
 $id = $_GET['stdId'];
 $sql = "DELETE FROM `student_course` WHERE studentId = " . $id;

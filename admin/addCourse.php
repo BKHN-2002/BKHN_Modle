@@ -3,11 +3,6 @@ session_start();
 require_once "../modle/DB.php";
 $echoCourseExist = " ";
 include("../auth/auth.php");
-if (isset($_SESSION['username'])) {
-    echo "ss";
-} else {
-    echo "ss";
-}
 if (isset($_POST["submit"]) && isAdmin($connection)) {
     $courseId = validator($_POST["courseId"]);
     $courseName = validator($_POST["courseName"]);
@@ -26,18 +21,19 @@ if (isset($_POST["submit"]) && isAdmin($connection)) {
                     break;
                 }
             }
-        } else
+        } else{
             $echoCourseExist = "There Is No Data To Show";
-
+        }
 
         if (!$courseExist) {
             $sql = "INSERT INTO `courses`(`id`, `name`, `numHour`) VALUES ( $courseId ,'$courseName',$numOfHours)";
+            $echoCourseExist = "Added Succesfully";
             if (mysqli_query($connection, $sql)) {
             } else
                 echo "Error " . $sql . mysqli_error($conn);
         }
     } else {
-        echo "enter a correct data ... ";
+        echo "Enter a correct data ... ";
     }
 }
 
@@ -80,7 +76,7 @@ function validator($str)
             font-weight: 600;
             text-transform: uppercase;
             color: white;
-            background-color: #007bff;
+            background-color: #04AA6D;
             margin: 43px 20px;
             border: none;
             border-radius: 10px;
@@ -108,6 +104,9 @@ function validator($str)
             text-transform: capitalize;
             font-weight: 600;
             color: red;
+        }
+        .slider{
+            background-color: #04AA6D !important;
         }
     </style>
 </head>
@@ -145,7 +144,7 @@ function validator($str)
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider">
                                 <i class="nav-icon fas fa-address-card"></i>
                                 <p>
                                     Student Actions
@@ -170,7 +169,7 @@ function validator($str)
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider">
                                 <i class="nav-icon fas fa-address-book"></i>
                                 <p>
                                     Instructor Actions
@@ -195,7 +194,7 @@ function validator($str)
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider">
                                 <i class="nav-icon fas fa-book-open"></i>
                                 <p>
                                     Course Actions

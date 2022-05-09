@@ -1,18 +1,18 @@
 <?php
 session_start();
-include_once("../modle/DB.php");
+include_once("../../modle/DB.php");
 if (isset($_POST['answer'])) {
     mysqli_query($connection, "INSERT INTO `answerassignment`(`assignmentId`, `studentId`, `answer`, `grade`) 
                             VALUES (" . $_GET['assignmentId'] . "," . $_SESSION['username'] . ",'" . $_POST['answer'] . "',-1)");
-    header("LOCATION:Student.php?id=" . $_SESSION['username']);
+    header("LOCATION:../Student.php");
 }
 ?>
 <!doctype html>
 <html lang="en">
 <head>
     <title>Assignment</title>
-    <link rel="stylesheet" href="../style/formStyle.css">
-    <link rel="stylesheet" href="../style/tableStyle.css">
+    <link rel="stylesheet" href="../../style/formStyle.css">
+    <link rel="stylesheet" href="../../style/tableStyle.css">
     <style>
         .disclaimer{
             display : none;
