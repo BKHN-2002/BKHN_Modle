@@ -12,9 +12,12 @@ if (isset($_POST['submit'])) {
 
     //INSERT INTO `quizzes`(`id`, `instructorId`, `courseId`, `startTime`, `endTime`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]')
     $sql = "INSERT INTO `quizzes`(`id`, `instructorId`, `courseId`, `startTime`, `endTime`, `name`) VALUES ('','$instructorId','$courseId','$stratTime','$endTime','$nameQuiz')";
-    mysqli_query($connection, $sql);
 
-    header("Location:addQuestionForQuiz.php?courseId=$courseId");
+
+    mysqli_query($connection, $sql);
+    $idQuize = mysqli_insert_id($connection);
+
+    header("Location:addQustionToQuize.php?id=$idQuize");
 }
 ?>
 <!doctype html>

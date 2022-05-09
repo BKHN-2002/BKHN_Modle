@@ -107,7 +107,7 @@ function InstructorFiller()
             left: 0;
             z-index: 1;
             font-size: 22px;
-            border: none;
+            border: 1px solid black;
             background: transparent;
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -128,7 +128,7 @@ function InstructorFiller()
             left: 0;
             height: 64px;
             width: calc(100% - 64px);
-            background: #fff;
+            background: #dfd;
             z-index: 0;
         }
 
@@ -139,7 +139,7 @@ function InstructorFiller()
             right: 0;
             width: 64px;
             height: 64px;
-            background-color: #007bff;
+            background-color: #04AA6D;
             background-image: url(https://raw.githubusercontent.com/solodev/styling-select-boxes/master/select1.png);
             background-position: center;
             background-repeat: no-repeat;
@@ -157,7 +157,7 @@ function InstructorFiller()
             font-weight: 600;
             text-transform: uppercase;
             color: white;
-            background-color: #007bff;
+            background-color: #04AA6D;
             margin: 43px 20px;
             border: none;
             border-radius: 10px;
@@ -170,6 +170,9 @@ function InstructorFiller()
             text-transform: capitalize;
             font-weight: 600;
             color: red;
+        }
+        .slider{
+            background-color: #04AA6D !important;
         }
     </style>
 </head>
@@ -207,7 +210,7 @@ function InstructorFiller()
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider ">
                                 <i class="nav-icon fas fa-address-card"></i>
                                 <p>
                                     Student Actions
@@ -232,7 +235,7 @@ function InstructorFiller()
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider">
                                 <i class="nav-icon fas fa-address-book"></i>
                                 <p>
                                     Instructor Actions
@@ -257,7 +260,7 @@ function InstructorFiller()
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider ">
                                 <i class="nav-icon fas fa-book-open"></i>
                                 <p>
                                     Course Actions

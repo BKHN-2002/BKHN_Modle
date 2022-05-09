@@ -32,9 +32,16 @@ if (isset($_SESSION['username'])) {
 <head>
     <!-- <link rel="stylesheet" type="text/css" href="../style/tableStyle.css" /> -->
     <style>
+        body{
+            background-color:#f2f1f1b8 ;
+            margin-top: 0;
+        }
         table {
             border-collapse: collapse;
             width: 100%;
+            margin-top: 0;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
         }
 
         th,
@@ -43,16 +50,17 @@ if (isset($_SESSION['username'])) {
             text-align: left;
             border-bottom: 1px solid #ddd;
             text-align: center;
-
+            width: 400px !important;
         }
 
         tr:hover {
-            background-color: rgb(213, 228, 255);
+            background-color: rgb(255 255 255);
+            border-radius: 20px;
         }
 
 
         th {
-            background-color: #04AA6D;
+            background-color: #adadf6;
             color: white;
             padding: 18px;
             font-size: 20px;
@@ -60,24 +68,23 @@ if (isset($_SESSION['username'])) {
 
         a {
             background-color: #04AA6D;
-            /* Green */
             border: none;
-            color: white;
             padding: 8px 16px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
-            margin: 4px 2px;
+            margin: 10px 2px;
             transition-duration: 0.4s;
             cursor: pointer;
             background-color: white;
             color: black;
-            border: 1px solid #04AA6D;
+            width: 130px !important;
+
         }
 
         a:hover {
-            background-color: #04AA6D;
+            background-color: #adadf6;
             color: white;
         }
 
@@ -85,12 +92,9 @@ if (isset($_SESSION['username'])) {
             display: none;
         }
 
-
-
         .insid {
-
             margin-top: 25px;
-            /* margin-right: 15px; */
+            text-align: right;
         }
 
         #text {
@@ -108,15 +112,42 @@ if (isset($_SESSION['username'])) {
 
         .container {
             display: flex;
-            /* padding: 70px; */
+            justify-content: center;
+            align-items: center;
+            background-color: #c5c5f6;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin-top: 0;
         }
 
         .container .info-container {
-            width: 100%;
+            width: 90%;
+            margin: 0 auto;
             padding: 15px 20px;
-            border-radius: 20px;
-            background-color: #04AA6D;
+        }
 
+        .main-container {
+            padding: 40px;
+            background-color: #c5c5f6;
+            margin: 40px 0px 0;
+            border-radius: 20px;
+        }
+
+        h1 {
+            text-transform: capitalize;
+            font-weight: 800;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h2 {
+            color: white;
+            text-align: center;
+            padding: 22px 0;
+            margin: 20px 0 0;
+            background-color: #9933ff;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            text-transform: uppercase;
         }
     </style>
     <title>Student <?php echo $name ?></title>
@@ -125,152 +156,151 @@ if (isset($_SESSION['username'])) {
 <body>
     <div class="container">
         <div class="info-container">
-            <div class="info">
-                <h1 id="text">
-                    <?php
-                    echo "Welcome " . $name
-                    ?></h1>
-
-                <div class="insid">
-                    <a href="../chat/chatScreen.php">Chat</a>
-                </div>
-                <div class="insid">
-                    <a href="../logIn_register/logout.php">LogOut</a>
-                </div>
+            <h1 id="text">
+                <?php
+                echo "Welcome " . $name
+                ?></h1>
+            <div class="insid">
+                <a href="../chat/chatScreen.php">Chat</a>
+                <a href="../logIn_register/logout.php">LogOut</a>
             </div>
+            <!-- <div class="info">
+                
+            </div> -->
         </div>
-
-
-
     </div>
-    <h2>Quizzes</h2>
-    <table>
-        <tr>
-            <th>course name</th>
-            <th>your grade</th>
-            <th>time</th>
-            <th>attempt quiz</th>
-        </tr>
-        <?php
 
-        $query_studentQuiz = mysqli_query(
-            $connection,
-            "SELECT courses.name as courseNameForQuiz, quizzes.id as quizId ,quizzes.visibility as visibility
-                            from quizzes JOIN courses join student_course
-                            on quizzes.courseId = courses.id 
-                            and quizzes.instructorId = student_course.instructorID 
-                            and quizzes.courseId = student_course.courseId
-                            WHERE student_course.studentId = $studentId"
-        );
-
-
-        while ($row = mysqli_fetch_assoc($query_studentQuiz)) {
-
-            $quizId = $row['quizId'];
-            if ($row['visibility'] != 0) {
-                $query3 = "SELECT startTime,endTime from quizzes where id=$quizId";
-                $dat3 = mysqli_query($connection, $query3);
-                $res3 = mysqli_fetch_all($dat3);
-                $startTimeOfQuiz = $res3[0][0];
-                $endTimeOfQuiz = $res3[0][1];
-
-                $timestamp = strtotime($startTimeOfQuiz);
-                $day = date('l', $timestamp);
-
-                $timestampEnd = strtotime($startTimeOfQuiz);
-                $dayEnd = date('l', $timestampEnd);
-                echo "<tr>";
-                echo "<td>" . $row['courseNameForQuiz'] . "</td>";
-                echo "<td>" . getQuizGrade($connection, $row['quizId'], $studentId) . "</td>";
-                echo "<td>" . '<b>Start in:</b> <br>' . $day . ' ' . $startTimeOfQuiz . '  <hr> <b>End in: </b><br>' . $dayEnd . ' '  . $endTimeOfQuiz .
-                    "</td>";
-                echo "<td> <a href='Quiz.php?quizId=$quizId'>attempt now</button> </a>";
-                echo "</tr>";
-            }
-        }
-        ?>
-
-
-    </table>
-    <br>
-    <h2>Assignmentes</h2>
-    <table>
-        <tr>
-            <th>course name</th>
-            <th>your grade</th>
-            <th>time</th>
-            <th>attempt assignment</th>
-        </tr>
-        <?php
-        $query_studentQuiz = mysqli_query(
-            $connection,
-            "SELECT courses.name as courseNameForAssignment ,assignment.id as assignmentId,assignment.visibility as visibility
-                            from assignment JOIN courses join student_course
-                            on assignment.coursesId = courses.id and assignment.instructorId = student_course.instructorID 
-                            and assignment.coursesId = student_course.courseId
-                            WHERE student_course.studentId = $studentId"
-        );
-
-
-        while ($row = mysqli_fetch_assoc($query_studentQuiz)) {
-            if ($row['visibility'] != 0) {
-
-                $assignmentId = $row['assignmentId'];
-
-                $query3 = "SELECT startTime,endTime from assignment where id=$assignmentId";
-                $dat3 = mysqli_query($connection, $query3);
-                $res3 = mysqli_fetch_all($dat3);
-                $startTimeOfQuiz = $res3[0][0];
-                $endTimeOfQuiz = $res3[0][1];
-
-                $timestamp = strtotime($startTimeOfQuiz);
-                $day = date('l', $timestamp);
-
-                $timestampEnd = strtotime($endTimeOfQuiz);
-                $dayEnd = date('l', $timestampEnd);
-                echo "<tr>";
-                echo "<td>" . $row['courseNameForAssignment'] . "</td>";
-                echo "<td>" . getAssignmentGrade($connection, $row['assignmentId'], $studentId) . "</td>";
-                echo "<td>" . '<b>Start in:</b> <br>' . $day . ' ' . $startTimeOfQuiz . '  <hr> <b>End in: </b><br>' . $dayEnd . ' '  . $endTimeOfQuiz .
-                    "</td>";
-                echo "<td> <a href='Assignment.php?assignmentId=$assignmentId'>attempt now</a> </td>";
-                echo "</tr>";
-            }
-        }
-        ?>
-    </table>
-    <br>
-    <h2>Courses</h2>
-    <table>
-        <tr>
-            <th>course name</th>
-            <th>instructor name</th>
-            <th>course detailes</th>
-        </tr>
-        <?php
-        $query_studentQuiz = mysqli_query(
-            $connection,
-            "SELECT courses.name as coursesName,
+    <div class="main-container">
+        <h2>Courses</h2>
+        <table>
+            <tr>
+                <th>course name</th>
+                <th>instructor name</th>
+                <th>course detailes</th>
+            </tr>
+            <?php
+            $query_studentQuiz = mysqli_query(
+                $connection,
+                "SELECT courses.name as coursesName,
                             instructor.name as instructorName,
                             courses.id as courseId,
                             instructor.id as instructorId
                             from student_course join courses JOIN instructor
                             on student_course.instructorID = instructor.id and student_course.courseId = courses.id 
                             WHERE student_course.studentId = $studentId"
-        );
+            );
 
 
-        while ($row = mysqli_fetch_assoc($query_studentQuiz)) {
-            $courseId = $row['courseId'];
-            $instructorId = $row['instructorId'];
-            echo "<tr>";
-            echo "<td>" . $row['coursesName'] . "</td>";
-            echo "<td> Dr." . $row['instructorName'] . "</td>";
-            echo "<td> <a href='Course.php?courseId=$courseId&instructorId=$instructorId'>go to course</a> </td>";
-            echo "</tr>";
-        }
-        ?>
-    </table>
+            while ($row = mysqli_fetch_assoc($query_studentQuiz)) {
+                $courseId = $row['courseId'];
+                $instructorId = $row['instructorId'];
+                echo "<tr>";
+                echo "<td>" . $row['coursesName'] . "</td>";
+                echo "<td> Dr." . $row['instructorName'] . "</td>";
+                echo "<td> <a href='Course.php?courseId=$courseId&instructorId=$instructorId'>go to course</a> </td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
+
+        <h2>Quizzes</h2>
+        <table>
+            <tr>
+                <th>course name</th>
+                <th>your grade</th>
+                <th>time</th>
+                <th>attempt quiz</th>
+            </tr>
+            <?php
+
+            $query_studentQuiz = mysqli_query(
+                $connection,
+                "SELECT courses.name as courseNameForQuiz, quizzes.id as quizId ,quizzes.visibility as visibility
+                            from quizzes JOIN courses join student_course
+                            on quizzes.courseId = courses.id 
+                            and quizzes.instructorId = student_course.instructorID 
+                            and quizzes.courseId = student_course.courseId
+                            WHERE student_course.studentId = $studentId"
+            );
+
+
+            while ($row = mysqli_fetch_assoc($query_studentQuiz)) {
+
+                $quizId = $row['quizId'];
+                if ($row['visibility'] != 0) {
+                    $query3 = "SELECT startTime,endTime from quizzes where id=$quizId";
+                    $dat3 = mysqli_query($connection, $query3);
+                    $res3 = mysqli_fetch_all($dat3);
+                    $startTimeOfQuiz = $res3[0][0];
+                    $endTimeOfQuiz = $res3[0][1];
+
+                    $timestamp = strtotime($startTimeOfQuiz);
+                    $day = date('l', $timestamp);
+
+                    $timestampEnd = strtotime($startTimeOfQuiz);
+                    $dayEnd = date('l', $timestampEnd);
+                    echo "<tr>";
+                    echo "<td>" . $row['courseNameForQuiz'] . "</td>";
+                    echo "<td>" . getQuizGrade($connection, $row['quizId'], $studentId) . "</td>";
+                    echo "<td>" . '<b>Start in:</b> <br>' . $day . ' ' . $startTimeOfQuiz . '  <hr> <b>End in: </b><br>' . $dayEnd . ' '  . $endTimeOfQuiz .
+                        "</td>";
+                    echo "<td> <a href='Quiz.php?quizId=$quizId'>attempt now</button> </a>";
+                    echo "</tr>";
+                }
+            }
+            ?>
+
+
+        </table>
+        <br>
+        <h2>Assignmentes</h2>
+        <table>
+            <tr>
+                <th>course name</th>
+                <th>your grade</th>
+                <th>time</th>
+                <th>attempt assignment</th>
+            </tr>
+            <?php
+            $query_studentQuiz = mysqli_query(
+                $connection,
+                "SELECT courses.name as courseNameForAssignment ,assignment.id as assignmentId,assignment.visibility as visibility
+                            from assignment JOIN courses join student_course
+                            on assignment.coursesId = courses.id and assignment.instructorId = student_course.instructorID 
+                            and assignment.coursesId = student_course.courseId
+                            WHERE student_course.studentId = $studentId"
+            );
+
+
+            while ($row = mysqli_fetch_assoc($query_studentQuiz)) {
+                if ($row['visibility'] != 0) {
+
+                    $assignmentId = $row['assignmentId'];
+
+                    $query3 = "SELECT startTime,endTime from assignment where id=$assignmentId";
+                    $dat3 = mysqli_query($connection, $query3);
+                    $res3 = mysqli_fetch_all($dat3);
+                    $startTimeOfQuiz = $res3[0][0];
+                    $endTimeOfQuiz = $res3[0][1];
+
+                    $timestamp = strtotime($startTimeOfQuiz);
+                    $day = date('l', $timestamp);
+
+                    $timestampEnd = strtotime($endTimeOfQuiz);
+                    $dayEnd = date('l', $timestampEnd);
+                    echo "<tr>";
+                    echo "<td>" . $row['courseNameForAssignment'] . "</td>";
+                    echo "<td>" . getAssignmentGrade($connection, $row['assignmentId'], $studentId) . "</td>";
+                    echo "<td>" . '<b>Start in:</b> <br>' . $day . ' ' . $startTimeOfQuiz . '  <hr> <b>End in: </b><br>' . $dayEnd . ' '  . $endTimeOfQuiz .
+                        "</td>";
+                    echo "<td> <a href='Assignment.php?assignmentId=$assignmentId'>attempt now</a> </td>";
+                    echo "</tr>";
+                }
+            }
+            ?>
+        </table>
+    </div>
+
 
 </body>
 

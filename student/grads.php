@@ -40,7 +40,7 @@ $courseSql = "SELECT  `name` FROM `courses` WHERE `id` = " . $courseId;
 
         .container span {
             text-transform: capitalize;
-            color: #187ae2;
+            color: #9933ff;
 
         }
 
@@ -61,7 +61,7 @@ $courseSql = "SELECT  `name` FROM `courses` WHERE `id` = " . $courseId;
         }
 
         tr:hover {
-            background-color: #6aabf2;
+            background-color: #adadf6;
         }
 
         tr:nth-child(even) {
@@ -69,7 +69,7 @@ $courseSql = "SELECT  `name` FROM `courses` WHERE `id` = " . $courseId;
         }
 
         th {
-            background-color: #4c92dd;
+            background-color: #9933ff;
             color: white;
         }
     </style>
@@ -78,7 +78,6 @@ $courseSql = "SELECT  `name` FROM `courses` WHERE `id` = " . $courseId;
 <body>
     <div class="container">
         <?php
-        //getting student name 
         $stdSqlResult = mysqli_query($connection, $stdSql);
         $row = mysqli_fetch_assoc($stdSqlResult);
         $stdName = $row['name'];

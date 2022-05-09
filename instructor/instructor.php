@@ -47,31 +47,36 @@ if (isset($_GET['hideQuizId'])) {
 <head>
 
     <style>
-        .insid {
-
-            margin-top: 25px;
-            width: 350px;
-            /* margin-right: 15px; */
+        #links {
+            background-color: #04AA6D;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            width: 183px !important;
         }
 
-        #text {
-            margin-right: 40%;
+        #links:hover {
+            background-color: #adadf6;
             color: white;
         }
 
-        .disclaimer {
-            display: none;
+        body {
+            background-color: #f2f1f1b8;
+            margin-top: 0;
         }
-
-        table td,
-        table th {
-            text-align: center;
-        }
-
 
         table {
             border-collapse: collapse;
             width: 100%;
+            margin-top: 0;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
         }
 
         th,
@@ -80,16 +85,17 @@ if (isset($_GET['hideQuizId'])) {
             text-align: left;
             border-bottom: 1px solid #ddd;
             text-align: center;
-
+            width: 400px !important;
         }
 
         tr:hover {
-            background-color: rgb(213, 228, 255);
+            background-color: #d9e1f0;
+            border-radius: 20px;
         }
 
 
         th {
-            background-color: #04AA6D;
+            background-color: #adadf6;
             color: white;
             padding: 18px;
             font-size: 20px;
@@ -97,51 +103,38 @@ if (isset($_GET['hideQuizId'])) {
 
         a {
             background-color: #04AA6D;
-            /* border: none; */
-            color: white;
+            border: none;
             padding: 8px 16px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
-
+            margin: 10px 2px;
             transition-duration: 0.4s;
             cursor: pointer;
             background-color: white;
             color: black;
-            border: 1px solid #04AA6D;
-        }
+            width: 176px !important;
 
-        #links {
-            background-color: #04AA6D;
-            color: white;
-            /* padding: 8px 16px; */
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            transition-duration: 0.4s;
-            cursor: pointer;
-            background-color: white;
-            color: black;
-            /* margin: 4px; */
-            border: 1px solid #04AA6D;
-            width: 100px;
-        }
-
-        #links:hover {
-            background-color: #04AA6D;
-            color: white;
         }
 
         a:hover {
-            background-color: #04AA6D;
+            background-color: #adadf6;
             color: white;
         }
 
-        .container {
-            display: flex;
-            /* padding: 70px; */
+        .disclaimer {
+            display: none;
+        }
+
+        .insid {
+            margin-top: 25px;
+            text-align: right;
+        }
+
+        #text {
+            margin-right: 50%;
+            color: white;
         }
 
         .container .info {
@@ -152,13 +145,59 @@ if (isset($_GET['hideQuizId'])) {
             margin: auto;
         }
 
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #c5c5f6;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin-top: 0;
+        }
 
         .container .info-container {
-            width: 100%;
+            width: 90%;
+            margin: 0 auto;
             padding: 15px 20px;
-            border-radius: 20px;
-            background-color: #04AA6D;
+        }
 
+        .main-container {
+            padding: 40px;
+            background-color: #c5c5f6;
+            margin: 40px 0px 0;
+            border-radius: 20px;
+        }
+
+        h1 {
+            text-transform: capitalize;
+            font-weight: 800;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h2 {
+            color: white;
+            text-align: center;
+            padding: 22px 0;
+            margin: 20px 0 0;
+            background-color: #9933ff;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            text-transform: uppercase;
+        }
+
+        .add {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .add a {
+            display: block;
+            padding: 20px 10px;
+            border-radius: 10px;
+        }
+        .main-container a {
+            border-radius: 10px;
         }
     </style>
     <!-- <link rel="stylesheet" type="text/css" href="../style/tableStyle.css" /> -->
@@ -167,173 +206,159 @@ if (isset($_GET['hideQuizId'])) {
 <body>
     <div class="container">
         <div class="info-container">
-
-            <div class="info">
-                <h1 id="text">
-                    <?php
-                    echo "Welcome Dr." . mysqli_fetch_assoc($query_insName)['name']
-                    ?></h1>
-                <div style="width: 100%;" class="insid">
-                    <a id="links" href="addStudentToCourse.php">Add Student to Course</a>
-                </div>
-                <div class="insid">
-                    <a id="links" href="../chat/chatScreen.php">Chat</a>
-                </div>
-
-                <div class="insid">
-
-                    <a id="links" href="showCourses.php">Show all Quizz</a>
-                </div>
-
-                <div class="insid">
-                    <a id="links" href="../logIn_register/logout.php">LogOut</a>
-                </div>
+            <h1 id="text">
+                <?php
+                echo "Welcome Dr." . mysqli_fetch_assoc($query_insName)['name']
+                ?></h1>
+            <div class="insid">
+                <a id="links" href="addStudentToCourse.php">Add Student to Course</a>
+                <a id="links" href="../chat/chatScreen.php">Chat</a>
+                <a id="links" href="showCourses.php">Show all Quizz</a>
+                <a id="links" href="../logIn_register/logout.php">LogOut</a>
             </div>
         </div>
-
-
-
     </div>
-    <h2>Quizzes</h2>
-    <table>
-        <tr>
-            <th>course name</th>
-            <th>action</th>
-            <th>edit date</th>
-            <th>visibility</th>
-        </tr>
-        <?php
-        $query_insQuiz = mysqli_query(
-            $connection,
-            "SELECT  courses.name as courseNameQuiz, quizzes.id as quizId,courses.id as courseId , quizzes.visibility as visibility
-                            from quizzes JOIN courses join instructor_course
-                            on quizzes.courseId = courses.id 
-                            and quizzes.instructorId = instructor_course.instructorID 
-                            and quizzes.courseId = instructor_course.courseId
-                            WHERE instructor_course.instructorID = $insId"
-        );
 
-
-        while ($row = mysqli_fetch_assoc($query_insQuiz)) {
-            $quizId = $row['quizId'];
-            $courseID = $row['courseId'];
-            echo "<tr>";
-            echo "<td>" . $row['courseNameQuiz'] . "</td>";
-            echo "<td> <a href='QuizInstructor.php?quizId=$quizId&courseId=$courseID'>show all student</button> </a>";
-
-            $query3 = "SELECT startTime,endTime from quizzes where id=$quizId";
-            $dat3 = mysqli_query($connection, $query3);
-            $res3 = mysqli_fetch_all($dat3);
-            $startTimeOfQuiz = $res3[0][0];
-            $endTimeOfQuiz = $res3[0][1];
-            $timestamp = strtotime($startTimeOfQuiz);
-            $day = date('l', $timestamp);
-
-            $timestampEnd = strtotime($endTimeOfQuiz);
-            $dayEnd = date('l', $timestampEnd);
-            echo "<td><a href='editDate.php?quizId=$quizId'>" . '<b>Start in:</b> <br>' . $day . ' ' . $startTimeOfQuiz . '  <hr> <b>End in: </b><br>' . $dayEnd . ' '  . $endTimeOfQuiz . "  <img  width='20px' src='../image/pencil.png'></a></td>";
-
-
-            if ($row['visibility'] != 0) {
-                echo "<td><a style='border: rgba(255,255,255,0);background: #ffffff00' href='instructor.php?id=$insId&hideQuizId=$quizId'><img width='40px' src='../image/view.png'></a></td>";
-            } else
-                echo "<td><a style='border: rgba(255,255,255,0);background: #ffffff00' href='instructor.php?id=$insId&viewQuizId=$quizId'><img width='40px' src='../image/hide.png'></a></td>";
-            echo "</tr>";
-        }
-        ?>
-
-
-    </table>
-
-    <a href="addNewQuiz.php">Add new quiz</a>
-    <br>
-    <h2>Assignmentes</h2>
-    <table>
-        <tr>
-            <th>course name</th>
-            <th>action</th>
-            <th>edit date</th>
-            <th>visibility</th>
-        </tr>
-        <?php
-
-
-        $query_insAss = mysqli_query(
-            $connection,
-            "SELECT  courses.name as courseNameForAssignment ,assignment.id as assignmentId,courses.id as courseId, assignment.visibility as visibility
-                            from assignment JOIN courses join instructor_course
-                            on assignment.coursesId = courses.id and assignment.instructorId = instructor_course.instructorID 
-                            and assignment.coursesId = instructor_course.courseId
-                            WHERE instructor_course.instructorID = $insId"
-        );
-
-
-        while ($row = mysqli_fetch_assoc($query_insAss)) {
-            $assignmentId = $row['assignmentId'];
-            $courseID = $row['courseId'];
-            echo "<tr>";
-            echo "<td>" . $row['courseNameForAssignment'] . "</td>";
-            echo "<td> <a href='AssignmentInstructor.php?assignmentId=$assignmentId&courseId=$courseID'>show all student</a> </td>";
-
-            $query3 = "SELECT startTime,endTime from assignment where id=$assignmentId";
-            $dat3 = mysqli_query($connection, $query3);
-            $res3 = mysqli_fetch_all($dat3);
-            $startTimeOfAssignment = $res3[0][0];
-            $endTimeOfAssignment = $res3[0][1];
-
-            $timestamp = strtotime($startTimeOfAssignment);
-            $day = date('l', $timestamp);
-
-            $timestampEnd = strtotime($endTimeOfAssignment);
-            $dayEnd = date('l', $timestampEnd);
-            echo "<td><a href='editDate.php?assignmentId=$assignmentId'>" . '<b>Start in:</b> <br>' . $day . ' ' . $startTimeOfQuiz . '  <hr> <b>End in: </b><br>' . $dayEnd . ' '  . $endTimeOfQuiz . "  <img  width='20px' src='../image/pencil.png'></a></td>";
-
-
-            if ($row['visibility'] != 0) {
-                echo "<td><a style='border: rgba(255,255,255,0);background: #ffffff00' href='instructor.php?id=$insId&hideAssignmentId=$assignmentId'><img width='40px' src='../image/view.png'></a></td>";
-            } else
-                echo "<td><a style='border: rgba(255,255,255,0);background: #ffffff00' href='instructor.php?id=$insId&viewAssignmentId=$assignmentId'><img width='40px' src='../image/hide.png'></a></td>";
-            echo "</tr>";
-        }
-        ?>
-    </table>
-
-    <a href="addNewAssignment.php" onsubmit="<?php
-                                                //$_SESSION['assignment']=1;
-                                                ?>">Add new assignment</a>
-    <br>
-    <h2>Courses</h2>
-    <table>
-        <tr>
-            <th>course name</th>
-            <th>instructor name</th>
-            <th>course detailes</th>
-        </tr>
-        <?php
-        $query_insCourse = mysqli_query(
-            $connection,
-            "SELECT DISTINCT courses.name as coursesName,
+    <div class="main-container">
+        <h2>Courses</h2>
+        <table>
+            <tr>
+                <th>course name</th>
+                <th>instructor name</th>
+                <th>course detailes</th>
+            </tr>
+            <?php
+            $query_insCourse = mysqli_query(
+                $connection,
+                "SELECT DISTINCT courses.name as coursesName,
                             instructor.name as instructorName,
                             courses.id as courseId,
                             instructor.id as instructorId
                             from instructor_course join courses JOIN instructor
                             on instructor_course.instructorID = instructor.id and instructor_course.courseId = courses.id 
                             WHERE instructor_course.instructorID = $insId"
-        );
+            );
 
 
-        while ($row = mysqli_fetch_assoc($query_insCourse)) {
-            $courseId = $row['courseId'];
-            $instructorId = $row['instructorId'];
-            echo "<tr>";
-            echo "<td>" . $row['coursesName'] . "</td>";
-            echo "<td> Dr." . $row['instructorName'] . "</td>";
-            echo "<td> <a href='courseInstructor.php?courseId=$courseId&instructorId=$instructorId'>go to course</a> </td>";
-            echo "</tr>";
-        }
-        ?>
-    </table>
+            while ($row = mysqli_fetch_assoc($query_insCourse)) {
+                $courseId = $row['courseId'];
+                $instructorId = $row['instructorId'];
+                echo "<tr>";
+                echo "<td>" . $row['coursesName'] . "</td>";
+                echo "<td> Dr." . $row['instructorName'] . "</td>";
+                echo "<td> <a href='courseInstructor.php?courseId=$courseId&instructorId=$instructorId'>go to course</a> </td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
 
+        <h2>Quizzes</h2>
+        <table>
+            <tr>
+                <th>course name</th>
+                <th>action</th>
+                <th>edit date</th>
+                <th>visibility</th>
+            </tr>
+            <?php
+            $query_insQuiz = mysqli_query(
+                $connection,
+                "SELECT  courses.name as courseNameQuiz, quizzes.id as quizId,courses.id as courseId , quizzes.visibility as visibility
+                            from quizzes JOIN courses join instructor_course
+                            on quizzes.courseId = courses.id 
+                            and quizzes.instructorId = instructor_course.instructorID 
+                            and quizzes.courseId = instructor_course.courseId
+                            WHERE instructor_course.instructorID = $insId"
+            );
+
+
+            while ($row = mysqli_fetch_assoc($query_insQuiz)) {
+                $quizId = $row['quizId'];
+                $courseID = $row['courseId'];
+                echo "<tr>";
+                echo "<td>" . $row['courseNameQuiz'] . "</td>";
+                echo "<td> <a href='QuizInstructor.php?quizId=$quizId&courseId=$courseID'>show all student</button> </a>";
+
+                $query3 = "SELECT startTime,endTime from quizzes where id=$quizId";
+                $dat3 = mysqli_query($connection, $query3);
+                $res3 = mysqli_fetch_all($dat3);
+                $startTimeOfQuiz = $res3[0][0];
+                $endTimeOfQuiz = $res3[0][1];
+                $timestamp = strtotime($startTimeOfQuiz);
+                $day = date('l', $timestamp);
+
+                $timestampEnd = strtotime($endTimeOfQuiz);
+                $dayEnd = date('l', $timestampEnd);
+                echo "<td><a href='editDate.php?quizId=$quizId'>" . '<b>Start in:</b> <br>' . $day . ' ' . $startTimeOfQuiz . '  <hr> <b>End in: </b><br>' . $dayEnd . ' '  . $endTimeOfQuiz . "  <img  width='20px' src='../image/pencil.png'></a></td>";
+
+
+                if ($row['visibility'] != 0) {
+                    echo "<td><a style='border: rgba(255,255,255,0);background: #ffffff00' href='instructor.php?id=$insId&hideQuizId=$quizId'><img width='40px' src='../image/view.png'></a></td>";
+                } else
+                    echo "<td><a style='border: rgba(255,255,255,0);background: #ffffff00' href='instructor.php?id=$insId&viewQuizId=$quizId'><img width='40px' src='../image/hide.png'></a></td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
+        <div class="add">
+            <a href="addNewQuiz.php">Add new quiz</a>
+        </div>
+
+        <h2>Assignmentes</h2>
+        <table>
+            <tr>
+                <th>course name</th>
+                <th>action</th>
+                <th>edit date</th>
+                <th>visibility</th>
+            </tr>
+            <?php
+
+
+            $query_insAss = mysqli_query(
+                $connection,
+                "SELECT  courses.name as courseNameForAssignment ,assignment.id as assignmentId,courses.id as courseId, assignment.visibility as visibility
+                            from assignment JOIN courses join instructor_course
+                            on assignment.coursesId = courses.id and assignment.instructorId = instructor_course.instructorID 
+                            and assignment.coursesId = instructor_course.courseId
+                            WHERE instructor_course.instructorID = $insId"
+            );
+
+
+            while ($row = mysqli_fetch_assoc($query_insAss)) {
+                $assignmentId = $row['assignmentId'];
+                $courseID = $row['courseId'];
+                echo "<tr>";
+                echo "<td>" . $row['courseNameForAssignment'] . "</td>";
+                echo "<td> <a href='AssignmentInstructor.php?assignmentId=$assignmentId&courseId=$courseID'>show all student</a> </td>";
+
+                $query3 = "SELECT startTime,endTime from assignment where id=$assignmentId";
+                $dat3 = mysqli_query($connection, $query3);
+                $res3 = mysqli_fetch_all($dat3);
+                $startTimeOfAssignment = $res3[0][0];
+                $endTimeOfAssignment = $res3[0][1];
+
+                $timestamp = strtotime($startTimeOfAssignment);
+                $day = date('l', $timestamp);
+
+                $timestampEnd = strtotime($endTimeOfAssignment);
+                $dayEnd = date('l', $timestampEnd);
+                echo "<td><a href='editDate.php?assignmentId=$assignmentId'>" . '<b>Start in:</b> <br>' . $day . ' ' . $startTimeOfQuiz . '  <hr> <b>End in: </b><br>' . $dayEnd . ' '  . $endTimeOfQuiz . "  <img  width='20px' src='../image/pencil.png'></a></td>";
+
+
+                if ($row['visibility'] != 0) {
+                    echo "<td><a style='border: rgba(255,255,255,0);background: #ffffff00' href='instructor.php?id=$insId&hideAssignmentId=$assignmentId'><img width='40px' src='../image/view.png'></a></td>";
+                } else
+                    echo "<td><a style='border: rgba(255,255,255,0);background: #ffffff00' href='instructor.php?id=$insId&viewAssignmentId=$assignmentId'><img width='40px' src='../image/hide.png'></a></td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
+        <div class="add">
+            <a href="addNewAssignment.php">Add new assignment</a>
+        </div>
+        <br>
+    </div>
 </body>
 
 </html>

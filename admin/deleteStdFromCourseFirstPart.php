@@ -4,11 +4,11 @@ require_once "connect.php";
 $echoCourseExist = " ";
 include("../auth/auth.php");
 if (isset($_POST["submit"]) && isAdmin($conn)) {
-    $stdId = validator($_POST["stdId"]);
-    if (!empty($stdId)) {
-        header('Location:deleteStdFromCourseSecPart.php?stdId=' . $stdId);
+    $instructorId = validator($_POST["instructorId"]);
+    if (!empty($instructorId)) {
+        header('Location:deleteInstructorFromCourseSecPart.php?instructorId=' . $instructorId);
     } else {
-        $echoCourseExist = "please enter a student ..... ";
+        $echoCourseExist = "please enter a instructor ..... ";
     }
 }
 
@@ -23,17 +23,39 @@ function validator($str)
     return $str;
     //return the data ( that passed the fauntion ) after validate it  
 }
-function StudentFiller()
+
+function tableFiller()
 {
-    $sql = "SELECT * from student";
+    $sql = "SELECT `courseId`, `studentId` FROM `student_course`   ";
     $result = mysqli_query($GLOBALS['conn'], $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            $stdId = $row['id'];
-            $stdName = $row['name'];
-            echo "<option value='$stdId'>$stdId - $stdName </option>";
+            $courseId = $row['courseId'];
+            $studentId = $row['studentId'];
+            $studentName = studentName($studentId);
+            $courseName = courseName($courseId);
+            echo "<tr>";
+            echo "<td>$studentName </td>";
+            echo "<td>$courseName </td>";
+            echo "<td> <a href='deleteStdFromCourseSecPart.php?stdId=$studentId'>delte</a></td>";
+            echo "</tr>";
         }
     }
+}
+function studentName($studentId)
+{
+    $sql = "SELECT  `name` FROM `student` WHERE `id` = " . $studentId;
+    $result = mysqli_query($GLOBALS['conn'], $sql);
+    $row = mysqli_fetch_assoc($result);
+    return $row['name'];
+}
+
+function courseName($courseId)
+{
+    $sql = "SELECT  `name` FROM `courses` WHERE `id` =  " . $courseId ;
+    $result = mysqli_query($GLOBALS['conn'], $sql);
+    $row = mysqli_fetch_assoc($result);
+    return $row['name'];
 }
 ?>
 <!DOCTYPE html>
@@ -42,88 +64,14 @@ function StudentFiller()
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Remove Student From Course</title>
+    <title>Remove Instructor From Course</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href='css/css/plugins/fontawesome-free/css/all.min.css'>
     <link rel="stylesheet" href='css/css/dist/css/adminlte.min.css'>
     <link rel="stylesheet" href='cms/css/plugins/toastr/toastr.min.css'>
     <style>
-        .ct-find-service {
-            background: #00719b;
-            font-family: 'stenciletta-solid', sans-serif;
-            padding: 20px 25px;
-            margin-top: 50px;
-            margin-bottom: 15px;
-            margin-top: 0;
-            padding-left: 25px;
-            padding-right: 25px;
-        }
-
-        .ct-find-service h2 {
-            color: #fff;
-            font-size: 38px;
-        }
-
-        @media (min-width: 1200px) {
-            .ct-find-service {
-                padding: 20px 55px;
-            }
-        }
-
-        .ct-select-group {
-            height: 64px;
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .ct-select-group .ct-select {
-            width: 100%;
-            height: 64px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            font-size: 22px;
-            border: none;
-            background: transparent;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            cursor: pointer;
-            padding: 5px 15px;
-        }
-
-        .ct-select-group .ct-select option {
-            font-size: 22px;
-            background: #fff;
-        }
-
-        .ct-select-group:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 64px;
-            width: calc(100% - 64px);
-            background: #fff;
-            z-index: 0;
-        }
-
-        .ct-select-group:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 64px;
-            height: 64px;
-            background-color: #007bff;
-            background-image: url(https://raw.githubusercontent.com/solodev/styling-select-boxes/master/select1.png);
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: 0;
-        }
-
+        
         .label {
             padding: 27px;
             text-transform: capitalize;
@@ -135,7 +83,7 @@ function StudentFiller()
             font-weight: 600;
             text-transform: uppercase;
             color: white;
-            background-color: #007bff;
+            background-color: #04AA6D;
             margin: 43px 20px;
             border: none;
             border-radius: 10px;
@@ -148,6 +96,53 @@ function StudentFiller()
             text-transform: capitalize;
             font-weight: 600;
             color: red;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+
+        }
+
+        tr:hover {
+            background-color: rgb(213, 228, 255);
+        }
+
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+            padding: 18px;
+            font-size: 20px;
+        }
+
+        table a {
+            background-color: #04AA6D;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: 1px solid #04AA6D;
+        }
+        .slider{
+            background-color: #04AA6D !important;
         }
     </style>
 </head>
@@ -185,7 +180,7 @@ function StudentFiller()
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider ">
                                 <i class="nav-icon fas fa-address-card"></i>
                                 <p>
                                     Student Actions
@@ -210,7 +205,7 @@ function StudentFiller()
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider">
                                 <i class="nav-icon fas fa-address-book"></i>
                                 <p>
                                     Instructor Actions
@@ -235,7 +230,7 @@ function StudentFiller()
 
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="nav-link active slider">
                                 <i class="nav-icon fas fa-book-open"></i>
                                 <p>
                                     Course Actions
@@ -266,22 +261,33 @@ function StudentFiller()
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
-                <form action="" method="post">
-                    <div class="stdId-container">
-                        <label class="label" for="">Student ID : </label>
+                <table>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Course Name</th>
+                        <th>Delete</th>
+                    </tr>
+                    <?php tableFiller(); ?>
+
+                    <?php ?>
+                </table>
+                <!-- <form action="" method="post">
+                    <div class="instructorId-container">
+                        <label for="" class="label">Instructor ID : </label>
                         <div class="ct-select-group ct-js-select-group">
-                            <select class="ct-select ct-js-select" name="stdId">
+                            <select class="ct-select ct-js-select" name="instructorId">
                                 <option value=""></option>
-                                <?php StudentFiller(); ?>
+                                <?php //InstructorFiller(); 
+                                ?>
                             </select>
                         </div>
                     </div>
                     <h4 class="state">
-                        <?php echo $echoCourseExist; ?>
+                        <?php // echo $echoCourseExist; 
+                        ?>
                     </h4>
                     <input class="sbmit" type="submit" name="submit" value="submit">
-                </form>
-
+                </form> -->
             </div>
 
         </div>
@@ -313,4 +319,5 @@ function StudentFiller()
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src='cms/plugins/toastr/toastr.min.js'></script>
 </body>
+
 </html>

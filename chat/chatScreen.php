@@ -23,8 +23,19 @@ if (substr($id, 0, 1) == 2) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../style/tableStyle.css" />
     <title>Chat</title>
+    <style>
+        th {
+            background-color: #9933ff;
+        }
+        a{
+            border: 1px solid #adadf6;
+        }
+        a:hover{
+            background-color: #adadf6;
+            color: white;
+        }
+    </style>
 </head>
-
 <body>
 <table>
     <tr><th>Name</th></tr>
