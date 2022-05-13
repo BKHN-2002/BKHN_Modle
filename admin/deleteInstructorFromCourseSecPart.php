@@ -2,7 +2,8 @@
 require_once "connect.php";
 
 $id = $_GET['instructorID'];
-$sql = "DELETE FROM `instructor_course` WHERE  instructorID = " . $id;
+$courseId=$_GET['courseId'];
+$sql = "DELETE FROM `instructor_course` WHERE  instructorID = " . $id ." && courseId=".$courseId;
 if (mysqli_query($conn, $sql)) {
     header('Location:deleteInstructorFromCourseFirstPart.php');
     exit();

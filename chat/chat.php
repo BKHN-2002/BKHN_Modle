@@ -3,9 +3,9 @@ session_start();
 $instructorId = $_SESSION['username'];
 if (isset($_SESSION["chat"])) {
     if (substr($_SESSION['username'], 0, 1) == 2) {
-        header("Location:../instructor/instructor.php?id=$instructorId");
+        header("Location:../instructor/instructor.php");
     } elseif (substr($_SESSION['username'], 0, 1) == 1) {
-        header("Location:../student/student.php?id=$instructorId");
+        header("Location:../student/student.php");
     }
 } else {
     $_SESSION["chat"] = 1;
@@ -152,9 +152,9 @@ if (isset($_SESSION["chat"])) {
         <div class="insid">
             <?php
             if (substr($id, 0, 1) == 2) {
-                echo " <a href='../instructor/instructor.php?id=$id'>Back</a>";
+                echo " <a href='../instructor/instructor.php'>Back</a>";
             } else if (substr($id, 0, 1) == 1) {
-                echo " <a href='../student/Student.php?id=$id'>Back</a>";
+                echo " <a href='../student/Student.php'>Back</a>";
             }
             ?>
 

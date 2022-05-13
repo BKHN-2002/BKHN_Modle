@@ -26,7 +26,7 @@ if (isset($_POST['text_submit']) && $_POST['text'] != '') {
 } elseif (isset($_POST['file_submit']) && $_FILES['file']['name'] != null) {
     $fileName = rand(1000000000, 9999999999) . $_FILES['file']['name'];
     $extension = pathinfo($fileName, PATHINFO_EXTENSION);
-    move_uploaded_file($_FILES['file']['tmp_name'], '..\Store\\' . $fileName);
+    move_uploaded_file($_FILES['file']['tmp_name'], '../../Store/' . $fileName);
     header("Location:insertFile.php?courseId=$courseID&id=$instructorID&fileName=$fileName");
 }
 if (isset($_GET['contentIdForDelete'])) {

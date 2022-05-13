@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
     $endTime = date('Y-m-d H:i:s', $endTime);
     if (in_array($fileExtension, $array)) {
         if ($fileExtension == '') $fileName = null;
-        move_uploaded_file($_FILES['file']['tmp_name'],'..\..\Store\\'.$fileName);
+        move_uploaded_file($_FILES['file']['tmp_name'],'../../Store/'.$fileName);
         $courseId = substr($_POST['courseId'], 0, 3);
         //INSERT INTO `assignment`(`id`, `qustion`, `descrption`, `coursesId`, `instructorId`, `file`, `startTime`, `endTime`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]')
         mysqli_query($connection, "INSERT INTO `assignment`(`qustion`, `descrption`, `coursesId`, `instructorId`, `file`,`startTime`, `endTime`)

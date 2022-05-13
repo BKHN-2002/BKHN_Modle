@@ -95,7 +95,7 @@ if ($startTimeOfAssignment > date("Y-m-d H:i:s")) {
         if ($row['file'] != ''):
             $nameFile = $row['file'];
             // echo $nameFile;
-            echo "<a href='../Store/upload/$nameFile'><h1>Download File</h1></a>";
+            echo "<a href='../../Store/$nameFile'><h1>Download File</h1></a>";
             ?>
 
         <?php endif; ?>

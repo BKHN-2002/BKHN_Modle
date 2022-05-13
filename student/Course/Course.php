@@ -240,7 +240,7 @@ $instructorName = $sqlInstructor->fetch_assoc();
                         echo "<p style='width: 95%; margin:auto ;'>" . $row['contains'] . "</p>";
                     } else if ($row['type'] == 'file') {
                         $fileName = $row['contains'];
-                        echo "<br><a style='margin-left: 20px' href='../Store/$fileName'>" . (substr($row['contains'], 10)) . "</a>";
+                        echo "<br><a style='margin-left: 20px' href='../../Store/$fileName'>" . (substr($row['contains'], 10)) . "</a>";
                     }
                 }
                 ?>

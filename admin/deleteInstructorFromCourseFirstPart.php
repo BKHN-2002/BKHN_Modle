@@ -37,7 +37,7 @@ function tableFiller()
             echo "<tr>";
             echo "<td>$instructorName </td>";
             echo "<td>$courseName </td>";
-            echo "<td> <a href='deleteInstructorFromCourseSecPart.php?instructorID=$instructorID'>delte</a></td>";
+            echo "<td> <a href='deleteInstructorFromCourseSecPart.php?instructorID=$instructorID&&courseId=$courseId'>delte</a></td>";
             echo "</tr>";
         }
     }

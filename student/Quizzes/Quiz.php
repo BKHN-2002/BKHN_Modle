@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
     //    echo 'grade' . $grade;
     $addDataToGradd = "INSERT INTO quizzesgrades (`quizId`, `studentId`, `grade`) VALUES ('$quizeId','$idstudent','$grade')";
     mysqli_query($connection, $addDataToGradd);
-    header("Location:Student.php?id=$idstudent");
+    header("Location:../Student.php");
 }
 ?>
 <!DOCTYPE html>
